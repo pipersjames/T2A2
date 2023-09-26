@@ -26,7 +26,7 @@ Tables
 
 Requests
 - request_id int NOT NULL (PK)
-- junction_id int NOT NULL (FK)
+- Purchaseorder_id int NOT NULL (FK)
 - request_type_id int NOT NULL (FK)
 - status_id int  NOT NULL (FK)
 - comments varchar(100) NULLABLE
@@ -34,15 +34,15 @@ Requests
 - user_id int  NOT NULL (FK)
 - docket_number varchar(30) NULLABLE
 - completion_comment varchar(100), NULLABLE
-- Date timestamp default: current_timestamp NOT NULL
+- created_at timestamp server_default: current_timestamp NOT NULL
 
-Request Types
+RequestTypes
 - request_type_id int NOT NUll (PK)
-- Description varchar(20) NULLABLE
+- Description varchar(20) NOT NULL
 
 Status'
 -status_id int NOT NULL (PK)
-- description varchar(20) NULLABLE
+- description varchar(20) NOT NULL
 
 Users
 - user_id int NOT NULL (PK)
@@ -66,7 +66,7 @@ Suppliers
 - return_policy int NOT NULL
 - lead_time int NOT NULL
 
-Purchase orders
+Purchases
 - PO_id int NOT NULL (PK)
 - PO_number int NOT NULL
 - Backorder_suffix varchar(2) NULLABLE
@@ -78,14 +78,15 @@ Items
 - internal_code varchar(10) NOT NULL
 - supplier_code varchar(10) Unique NOT NULL
 - description text NULLABLE
+- unit_of_measure varchar(10) NOT NULL
 - supplier_id id NOT NULL (FK)
 
-Junction Table - PO's and Items
-- junction_id int NOT NULL (PK)
-- PO_id int NOT NULL (FK)
+PurchaseOrders - PO's and Items
+- purchase_order_id int NOT NULL (PK)
+- Purchase_id int NOT NULL (FK)
 - item_id int NOT NULL (FK)
 - order_date date NOT NULL
-- ETA_date date (default: order_date + 7 days) NOT NULL
+- received_date date NULLABLE
 - item_qty int NOT NULL
 
 

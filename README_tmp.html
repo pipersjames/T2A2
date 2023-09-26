@@ -381,7 +381,7 @@ code {
 <p>Requests</p>
 <ul>
 <li>request_id int NOT NULL (PK)</li>
-<li>junction_id int NOT NULL (FK)</li>
+<li>Purchaseorder_id int NOT NULL (FK)</li>
 <li>request_type_id int NOT NULL (FK)</li>
 <li>status_id int  NOT NULL (FK)</li>
 <li>comments varchar(100) NULLABLE</li>
@@ -389,17 +389,17 @@ code {
 <li>user_id int  NOT NULL (FK)</li>
 <li>docket_number varchar(30) NULLABLE</li>
 <li>completion_comment varchar(100), NULLABLE</li>
-<li>Date timestamp default: current_timestamp NOT NULL</li>
+<li>created_at timestamp server_default: current_timestamp NOT NULL</li>
 </ul>
-<p>Request Types</p>
+<p>RequestTypes</p>
 <ul>
 <li>request_type_id int NOT NUll (PK)</li>
-<li>Description varchar(20) NULLABLE</li>
+<li>Description varchar(20) NOT NULL</li>
 </ul>
 <p>Status'<br>
 -status_id int NOT NULL (PK)</p>
 <ul>
-<li>description varchar(20) NULLABLE</li>
+<li>description varchar(20) NOT NULL</li>
 </ul>
 <p>Users</p>
 <ul>
@@ -426,7 +426,7 @@ code {
 <li>return_policy int NOT NULL</li>
 <li>lead_time int NOT NULL</li>
 </ul>
-<p>Purchase orders</p>
+<p>Purchases</p>
 <ul>
 <li>PO_id int NOT NULL (PK)</li>
 <li>PO_number int NOT NULL</li>
@@ -440,15 +440,16 @@ code {
 <li>internal_code varchar(10) NOT NULL</li>
 <li>supplier_code varchar(10) Unique NOT NULL</li>
 <li>description text NULLABLE</li>
+<li>unit_of_measure varchar(10) NOT NULL</li>
 <li>supplier_id id NOT NULL (FK)</li>
 </ul>
-<p>Junction Table - PO's and Items</p>
+<p>PurchaseOrders - PO's and Items</p>
 <ul>
-<li>junction_id int NOT NULL (PK)</li>
-<li>PO_id int NOT NULL (FK)</li>
+<li>purchase_order_id int NOT NULL (PK)</li>
+<li>Purchase_id int NOT NULL (FK)</li>
 <li>item_id int NOT NULL (FK)</li>
 <li>order_date date NOT NULL</li>
-<li>ETA_date date (default: order_date + 7 days) NOT NULL</li>
+<li>received_date date NULLABLE</li>
 <li>item_qty int NOT NULL</li>
 </ul>
 <p>R7</p>
