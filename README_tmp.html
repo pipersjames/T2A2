@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>README.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+html,footer,header{
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Custom MD PDF CSS
+ */
+html,footer,header{
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+
+ }
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+<link rel="stylesheet" href="file:///home/james/JamesPipers_T2A2/R%3A%5C2.Travail%5C1.Enseignement%5CCours%5C_1.Outils%5C2.Developpement%5C1.SCSS%5Cmain.css" type="text/css"><link rel="stylesheet" href="file:///home/james/JamesPipers_T2A2/D%3A%5Crdaros%5CCours%5C_1.Outils%5C2.Developpement%5C1.SCSS%5Cmain.css" type="text/css">
+</head>
+
+<body>
+    <h2 id="supplier-request-form-api">Supplier Request form API</h2>
+<p>R1</p>
+<p>When a company grows to a certain extent processes are often compartmentalized to gain efficiences. It is also done to regulate certain actions and ensure that are handled appropriately. This API is designed to take requests from different departments of a business and feed them to the purchasing division to liase/make adjustments accordingly. A similiar comparision would be an email ticketing system. By design the components of the request are rigid enough to streamline workflow to select team members but with enough variability that situations can be explained. Emails and phone numbers of users are in the system so that if the feedback is insuffiecent they can be contacted.</p>
+<p>R2</p>
+<p>Team members handle different suppliers as workload increases and each issues can often take quite a bit of back and forth as well as a good understanding of supplier-client relations. On the other hand some tasks are a simple tick and flick. This API intends to solve this issue by allowing the purchasing officer to get the specific data they need related to the workflow they are handling.</p>
+<p>R3</p>
+<p>I've chosen the relational database model for 2 reasons. Because this is what we have learnt how to handle and it provides a solid amount of data validation to ensure that data entry is correct going into the model. It has good security...</p>
+<p>R4</p>
+<p>R5</p>
+<p>R6</p>
+<p><img src="file:///home/james/JamesPipers_T2A2/resources/API ERD.png" alt="API ERD"></p>
+<p>Tables</p>
+<p>Requests</p>
+<ul>
+<li>request_id int NOT NULL (PK)</li>
+<li>junction_id int NOT NULL (FK)</li>
+<li>request_type_id int NOT NULL (FK)</li>
+<li>status_id int  NOT NULL (FK)</li>
+<li>comments varchar(100) NULLABLE</li>
+<li>request_qty int NULLABLE</li>
+<li>user_id int  NOT NULL (FK)</li>
+<li>docket_number varchar(30) NULLABLE</li>
+<li>completion_comment varchar(100), NULLABLE</li>
+<li>Date timestamp default: current_timestamp NOT NULL</li>
+</ul>
+<p>Request Types</p>
+<ul>
+<li>request_type_id int NOT NUll (PK)</li>
+<li>Description varchar(20) NULLABLE</li>
+</ul>
+<p>Status'<br>
+-status_id int NOT NULL (PK)</p>
+<ul>
+<li>description varchar(20) NULLABLE</li>
+</ul>
+<p>Users</p>
+<ul>
+<li>user_id int NOT NULL (PK)</li>
+<li>first_name varchar(20) NOT NULL</li>
+<li>second_name varchar(20) NOT NULL</li>
+<li>email email NOT NULL</li>
+<li>phone varchar(20) NOT NULL</li>
+<li>department_id int  NULLABLE (FK)</li>
+</ul>
+<p>Departments</p>
+<ul>
+<li>department_id int NOT NULL (PK)</li>
+<li>name varchar(20) NOT NULL</li>
+<li>location varchar(100) NOT NULL</li>
+<li>open_hours varchar(20) NOT NULL</li>
+<li>warehouse_number int NULLABLE</li>
+</ul>
+<p>Suppliers</p>
+<ul>
+<li>supplier_id int NOT NULL (PK)</li>
+<li>name varchar(20) NOT NULL</li>
+<li>contact email NOT NULL</li>
+<li>return_policy int NOT NULL</li>
+<li>lead_time int NOT NULL</li>
+</ul>
+<p>Purchase orders</p>
+<ul>
+<li>PO_id int NOT NULL (PK)</li>
+<li>PO_number int NOT NULL</li>
+<li>Backorder_suffix varchar(2) NULLABLE</li>
+<li>warehouse_id int NOT NULL (FK)</li>
+<li>supplier_id int NOT NULL (FK)</li>
+</ul>
+<p>Items</p>
+<ul>
+<li>item_id int NOT NULL (PK)</li>
+<li>internal_code varchar(10) NOT NULL</li>
+<li>supplier_code varchar(10) Unique NOT NULL</li>
+<li>description text NULLABLE</li>
+<li>supplier_id id NOT NULL (FK)</li>
+</ul>
+<p>Junction Table - PO's and Items</p>
+<ul>
+<li>junction_id int NOT NULL (PK)</li>
+<li>PO_id int NOT NULL (FK)</li>
+<li>item_id int NOT NULL (FK)</li>
+<li>order_date date NOT NULL</li>
+<li>ETA_date date (default: order_date + 7 days) NOT NULL</li>
+<li>item_qty int NOT NULL</li>
+</ul>
+<p>R7</p>
+<p>R8</p>
+<p>R9</p>
+
+</body>
+
+</html>

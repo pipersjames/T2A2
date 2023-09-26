@@ -50,7 +50,7 @@ Users
 - second_name varchar(20) NOT NULL
 - email email NOT NULL
 - phone varchar(20) NOT NULL
-- department_id int  NOT NULL (FK)
+- department_id int  NULLABLE (FK)
 
 Departments
 - department_id int NOT NULL (PK)
