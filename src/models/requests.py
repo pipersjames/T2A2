@@ -1,13 +1,15 @@
 from main import db
 from sqlalchemy import DateTime
 from sqlalchemy.sql import func
+from sqlalchemy import ForeignKeyConstraint
 
 class Request(db.Model):
     __tablename__ = "requests"
     
     id = db.Column(db.Integer, primary_key=True)
     
-    purchase_order_id = db.Column(db.Integer, db.ForeignKey("purchase_orders.id"))
+    purchase_order_id = db.Column(db.Integer)
+    item_id = db.Column(db.Integer)
     request_type_id = db.Column(db.Integer, db.ForeignKey("request_types.id"))
     status_id = db.Column(db.Integer, db.ForeignKey("statuses.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
@@ -17,6 +19,7 @@ class Request(db.Model):
     created_at = db.Column(db.DateTime, server_default=func.now())
     completion_comment = db.Column(db.String(length=100), nullable=True)
     
+    # table relationships
     request_type = db.relationship(
         "RequestType", 
         back_populates="requests"
@@ -29,8 +32,11 @@ class Request(db.Model):
         "User",
         back_populates="requests"
         )
-    purchase_order = db.relationship(
-        "PurchaseOrder",
-        back_populates="requests"
+    
+    #foreign key constraint for the purchase_orders table connecting the relationship of the 
+    
+    purchase_order_constraint = ForeignKeyConstraint(
+        ["purchase_order_id", "item_id"],
+        ["purchase_orders.purchase_id", "purchase_orders.item_id"]
     )
     

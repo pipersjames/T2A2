@@ -7,3 +7,8 @@ class Status(db.Model):
     
     description = db.Column(db.String(length=20))
     
+    requests = db.relationship(
+    "Request", 
+    back_populates="status"
+    )
+    
