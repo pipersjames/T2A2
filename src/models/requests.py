@@ -8,8 +8,8 @@ class Request(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     
-    purchase_order_id = db.Column(db.Integer)
-    item_id = db.Column(db.Integer)
+    purchase_order_id = db.Column(db.Integer, nullable=False)
+    item_id = db.Column(db.Integer, nullable=False)
     request_type_id = db.Column(db.Integer, db.ForeignKey("request_types.id"))
     status_id = db.Column(db.Integer, db.ForeignKey("statuses.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
@@ -17,7 +17,7 @@ class Request(db.Model):
     issue_qty = db.Column(db.Integer)
     docket_number = db.Column(db.String(length=30), nullable=True)
     created_at = db.Column(db.DateTime, server_default=func.now())
-    completion_comment = db.Column(db.String(length=100), nullable=True)
+    completion_comment = db.Column(db.String(length=100), default = None, nullable=True)
     
     # table relationships
     request_type = db.relationship(
@@ -35,8 +35,10 @@ class Request(db.Model):
     
     #foreign key constraint for the purchase_orders table connecting the relationship of the 
     
-    purchase_order_constraint = ForeignKeyConstraint(
-        ["purchase_order_id", "item_id"],
-        ["purchase_orders.purchase_id", "purchase_orders.item_id"]
-    )
+    __table_args__ = (
+        db.ForeignKeyConstraint(
+            ['purchase_order_id', 'item_id'],
+            ['purchase_orders.purchase_id', 'purchase_orders.item_id']
+            ),
+        )
     
