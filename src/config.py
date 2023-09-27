@@ -3,12 +3,17 @@ import os
 class BaseConfig(object):
     @property
     def SQLALCHEMY_DATABASE_URI(self):
-        db = os.environ.get("DATABASE_URI")
+        db = os.environ.get("DATABASE_URL")
         
         if db is None:
-            raise ValueError("no DATABASE_URI found")
+            raise ValueError("no DATABASE_URL found")
         
         return db
+    @property
+    def JWT_SECRET_KEY(self):
+        secret_key = os.environ.get("SECRET_KEY")
+        
+        return secret_key
     
     
 class DevelopmentConfig(BaseConfig):

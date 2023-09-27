@@ -6,9 +6,9 @@ class Purchase(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     
     po_number = db.Column(db.Integer)
-    backorder_suffix = db.Column(db.Integer(length=2))
-    department_id = db.Column(db.Integer, db.Foreignkey("departments.id"))
-    supplier_id = db.Column(db.Integer, db.Foreignkey("suppliers.id"))
+    backorder_suffix = db.Column(db.String(length=2))
+    department_id = db.Column(db.Integer, db.ForeignKey("departments.id"))
+    supplier_id = db.Column(db.Integer, db.ForeignKey("suppliers.id"))
     
     #relationships
     

@@ -7,11 +7,11 @@ class PurchaseOrder(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     
-    purchase_id = db.Column(db.Integer, db.ForeignKey("purchases.id")),
+    purchase_id = db.Column(db.Integer, db.ForeignKey("purchases.id"))
     item_id = db.Column(db.Integer, db.ForeignKey("items.id"))
     order_date = db.Column(db.Date)
     received_date = db.Column(db.Date, nullable=True)
-    qty = db.Column(db.Integer(length=10))
+    qty = db.Column(db.Integer)
     
     # relationships
     

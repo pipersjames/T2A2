@@ -5,9 +5,9 @@ class Item(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     
-    internal_code = db.Column(db.Integer)
-    supp_code = db.Column(db.email)
-    description = db.Column(db.Integer(length=2))
+    internal_code = db.Column(db.String(length=20))
+    supp_code = db.Column(db.String(length=20))
+    description = db.Column(db.String(length=40))
     supp_id = db.Column(db.Integer, db.ForeignKey("suppliers.id"))
     
     supplier = db.relationship(

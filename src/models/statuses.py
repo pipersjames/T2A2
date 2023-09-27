@@ -5,5 +5,5 @@ class Status(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     
-    description = db.Column(db.Text(length=20))
+    description = db.Column(db.String(length=20))
     

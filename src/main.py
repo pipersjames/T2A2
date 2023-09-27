@@ -3,7 +3,10 @@ from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager
 from config import app_config
+import sqlalchemy as sa
+
 
 
 bycrypt = Bcrypt()
@@ -17,10 +20,14 @@ def init_app():
     app =  Flask(__name__)
     
     app.config.from_object("config.app_config")
+    jwt = JWTManager(app)
     
     db.init_app(app)
     
     ma.init_app(app)
+    
+    from commands import db_commands
+    app.register_blueprint(db_commands)
     
     return app
 

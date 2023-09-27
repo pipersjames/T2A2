@@ -11,11 +11,11 @@ class Request(db.Model):
     request_type_id = db.Column(db.Integer, db.ForeignKey("request_types.id"))
     status_id = db.Column(db.Integer, db.ForeignKey("statuses.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    comment = db.Column(db.Text(length=100), Nullable=True)
-    issue_qty = db.Column(db.Integer(length=10))
-    docket_number = db.Column(db.Text(length=30), nullable=True)
+    comment = db.Column(db.String(length=100), nullable=True)
+    issue_qty = db.Column(db.Integer)
+    docket_number = db.Column(db.String(length=30), nullable=True)
     created_at = db.Column(db.DateTime, server_default=func.now())
-    completion_comment = db.Column(db.Text(length=100), Nullable=True)
+    completion_comment = db.Column(db.String(length=100), nullable=True)
     
     request_type = db.relationship(
         "RequestType", 
