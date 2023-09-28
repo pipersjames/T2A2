@@ -106,13 +106,14 @@ def seed_db():
     db.session.commit()
     
     #dependant tables
-    user1 = User(
+    user1 = User(                #default admin user for creation
         first_name = "buyer",
         second_name = "Colbert",
         email = "buyer@email.com",
         password = bycrypt.generate_password_hash("password").decode("utf-8"),
         phone_number = "0433345921",
         department_id = 1,
+        admin = True,
     )
     
     user2 = User(
