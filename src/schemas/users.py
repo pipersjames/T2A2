@@ -1,14 +1,28 @@
 from main import ma
 from marshmallow import fields
+from schemas.departments import department_schema
 
 class UserSchema(ma.Schema):
     class Meta:
-        email = fields.Email(
+        fields = (
+            "id", 
+            "first_name", 
+            "second_name", 
+            "email", 
+            "password", 
+            "phone_number", 
+            "department",
+        )
+
+        load_only = ["id","password"]
+    
+    email = fields.Email(
         required=True,
         )
-        
-        fields = "id", "first_name", "second_name", "email", "phone_number", "department_id"
-
+    
+    department = fields.Nested(department_schema, exclude=("id",))
+    
+    
 
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)

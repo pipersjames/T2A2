@@ -9,7 +9,7 @@ import sqlalchemy as sa
 
 
 
-bycrypt = Bcrypt()
+bcrypt = Bcrypt()
 db = SQLAlchemy()
 ma = Marshmallow()
 

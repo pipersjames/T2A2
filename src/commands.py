@@ -1,6 +1,6 @@
 from flask import Blueprint
  
-from main import db, bycrypt
+from main import db, bcrypt
 from models import Department, Item, purchase_orders, Purchase, RequestType, Request, Status, Supplier, User
 from datetime import datetime
 from flask import current_app
@@ -110,7 +110,7 @@ def seed_db():
         first_name = "buyer",
         second_name = "Colbert",
         email = "buyer@email.com",
-        password = bycrypt.generate_password_hash("password").decode("utf-8"),
+        password = bcrypt.generate_password_hash("password").decode("utf-8"),
         phone_number = "0433345921",
         department_id = 1,
         admin = True,
@@ -120,7 +120,7 @@ def seed_db():
         first_name = "seller",
         second_name = "Colbert",
         email = "seller@email.com",
-        password = bycrypt.generate_password_hash("password2").decode("utf-8"),
+        password = bcrypt.generate_password_hash("password2").decode("utf-8"),
         phone_number = "0433345921",
         department_id = 2,
     )
@@ -129,7 +129,7 @@ def seed_db():
         first_name = "warehouse teamember",
         second_name = "Frank",
         email = "warehouse@email.com",
-        password = bycrypt.generate_password_hash("password1").decode("utf-8"),
+        password = bcrypt.generate_password_hash("password1").decode("utf-8"),
         phone_number = "0433345921",
         department_id = 3,
     )

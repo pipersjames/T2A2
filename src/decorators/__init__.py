@@ -1,0 +1,1 @@
+from decorators.admin import admin_required

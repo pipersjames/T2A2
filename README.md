@@ -17,6 +17,140 @@ R4
 
 R5
 
+Endpoints ;
+
+Auth
+
+register user
+login
+check-session
+
+
+
+
+
+Users
+
+ 
+
+Get all user information – admin only
+
+Get own user information
+
+Create new user
+
+Update admin – admin only
+
+Update department
+
+Delete user – own record only
+
+Delete user any – admin only
+
+ 
+
+Departments
+
+ 
+
+Create department – admin only
+
+Get all departments
+
+Get specific department information
+
+Delete department – admin only
+
+Update department values
+
+ 
+
+Items
+
+ 
+
+Create item – in bulk – admin
+
+Get all items –
+
+Get specific item information – back fill all PO’s related
+
+Delete item
+
+Update information on item
+
+ 
+
+Suppliers
+
+ 
+
+Create supplier – admin
+
+Get all suppliers
+
+Get specific supplier information
+
+Delete supplier – cascade delete all items
+
+Update supplier information – purchasing/admin only
+
+ 
+
+Requests
+
+ 
+
+Create request
+
+Get request
+
+Get requests based on specific parameters partularly the request type or status
+
+Update request – access depending on current status
+
+Delete request – access depending on current status
+
+ 
+
+Status and request types
+
+ 
+
+Create new – admin only
+
+Get all
+
+Delete – admin only
+
+Update description admin only
+
+ 
+
+Purchases
+
+ 
+
+Create new in bulk – admin only
+
+Get purchase information – pull data from purchase order table
+
+Update PO
+
+Delete PO – cascade delete all entries on the purchase orders table with the same PO – admin only
+
+ 
+
+Purchase orders ? don’t know if anything is required as this is attended to through the other two tables.
+
+ 
+
+Auth
+
+ 
+
+Don’t know.
+
 R6
 
 ![API ERD](./resources/API%20ERD.png)
