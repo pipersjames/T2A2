@@ -6,6 +6,7 @@ class PurchaseOrderSchema(ma.Schema):
         fields = (
             "id",
             "purchase_id",
+            "request_id",
             "item_id",
             "order_date",
             "received_date",

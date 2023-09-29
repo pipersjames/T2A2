@@ -17,14 +17,6 @@ class Item(db.Model):
         back_populates="item"
     )
     
-    purchase_orders = db.relationship(
-        "PurchaseOrder",
-        back_populates="items",
-        cascade="all, delete"
-    )
-   
-   
-    
     supplier = db.relationship(
         "Supplier",
         back_populates="items"

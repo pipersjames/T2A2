@@ -32,9 +32,10 @@ class Request(db.Model):
         "User",
         back_populates="requests"
         )
-    purchase_order = db.relationship(
+    purchase_orders = db.relationship(
         "PurchaseOrder",
-        back_populates="requests"
+        primaryjoin="Request.id == PurchaseOrder.request_id",
+        back_populates="request"
     )
     
     # purchase_orders = db.relationship(
