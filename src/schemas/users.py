@@ -10,11 +10,12 @@ class UserSchema(ma.Schema):
             "second_name", 
             "email", 
             "password", 
-            "phone_number", 
+            "phone_number",
+            "department_id", 
             "department",
         )
 
-        load_only = ["id","password"]
+        load_only = ["department_id","password"]
     
     email = fields.Email(
         required=True,
