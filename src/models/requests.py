@@ -1,7 +1,7 @@
 from main import db
 from sqlalchemy import DateTime
 from sqlalchemy.sql import func
-from sqlalchemy import ForeignKeyConstraint
+# from sqlalchemy import ForeignKeyConstraint
 
 class Request(db.Model):
     __tablename__ = "requests"
@@ -9,7 +9,7 @@ class Request(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     
     purchase_order_id = db.Column(db.Integer, nullable=False)
-    item_id = db.Column(db.Integer, nullable=False)
+    #item_id = db.Column(db.Integer, nullable=False)
     request_type_id = db.Column(db.Integer, db.ForeignKey("request_types.id"))
     status_id = db.Column(db.Integer, db.ForeignKey("statuses.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
@@ -32,13 +32,39 @@ class Request(db.Model):
         "User",
         back_populates="requests"
         )
+    purchase_order = db.relationship(
+        "PurchaseOrder",
+        back_populates="requests"
+    )
+    
+    # purchase_orders = db.relationship(
+    #     "Purchase",
+    #     secondary="purchase_orders",  # Name of the junction table
+    #     primaryjoin="and_(Request.id == purchase_orders.c.request_id, "
+    #                 "Request.purchase_order_id == purchase_orders.c.purchase_id, "
+    #                 "Request.item_id == purchase_orders.c.item_id)",
+    #     secondaryjoin="and_(Purchase.id == purchase_orders.c.purchase_id, "
+    #                   "Item.id == purchase_orders.c.item_id)",
+    #     back_populates="requests",
+    # )
+
+    # items = db.relationship(
+    #     "Item",
+    #     secondary="purchase_orders",  # Name of the junction table
+    #     primaryjoin="and_(Request.id == purchase_orders.c.request_id, "
+    #                 "Request.purchase_order_id == purchase_orders.c.purchase_id, "
+    #                 "Request.item_id == purchase_orders.c.item_id)",
+    #     secondaryjoin="and_(Item.id == purchase_orders.c.item_id, "
+    #                   "Purchase.id == purchase_orders.c.purchase_id)",
+    #     back_populates="requests",
+    # )
     
     #foreign key constraint for the purchase_orders table connecting the relationship of the 
     
-    __table_args__ = (
-        db.ForeignKeyConstraint(
-            ['purchase_order_id', 'item_id'],
-            ['purchase_orders.purchase_id', 'purchase_orders.item_id']
-            ),
-        )
+    # __table_args__ = (
+    #     db.ForeignKeyConstraint(
+    #         ['purchase_order_id', 'item_id'],
+    #         ['purchase_orders.purchase_id', 'purchase_orders.item_id']
+    #         ),
+    #     )
     

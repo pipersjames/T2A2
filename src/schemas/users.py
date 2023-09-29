@@ -4,6 +4,7 @@ from schemas.departments import department_schema
 
 class UserSchema(ma.Schema):
     class Meta:
+        ordered = True
         fields = (
             "id", 
             "first_name", 

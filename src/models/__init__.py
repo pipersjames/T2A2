@@ -6,5 +6,6 @@ from models.requests import Request
 from models.statuses import Status
 from models.users import User
 from models.suppliers import Supplier
-from models.purchase_orders import purchase_orders
+#from models.purchase_orders import purchase_orders
+from models.purchase_orders import PurchaseOrder
 

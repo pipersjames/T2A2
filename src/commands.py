@@ -1,7 +1,7 @@
 from flask import Blueprint
  
 from main import db, bcrypt
-from models import Department, Item, purchase_orders, Purchase, RequestType, Request, Status, Supplier, User
+from models import Department, Item, PurchaseOrder, Purchase, RequestType, Request, Status, Supplier, User
 from datetime import datetime
 from flask import current_app
 
@@ -214,28 +214,39 @@ def seed_db():
         item6,])
     db.session.commit()
     
-    #junction table direct data insert
-    purchase = Purchase.query.filter_by(po_number=443).first()
-    item = Item.query.filter_by(internal_code="A5643").first()
+    # #junction table direct data insert
+    # purchase = Purchase.query.filter_by(po_number=443).first()
+    # item = Item.query.filter_by(internal_code="A5643").first()
 
-    purchase_order1 = {
-        'purchase_id': purchase.id,
-        'item_id': item.id,
-        'order_date': datetime(2023, 9, 21),
-        'received_date': datetime(2023, 9, 28),
-        'qty': 10
-    }
+    # purchase_order1 = {
+    #     'purchase_id': purchase.id,
+    #     'item_id': item.id,
+    #     'order_date': datetime(2023, 9, 21),
+    #     'received_date': datetime(2023, 9, 28),
+    #     'qty': 10
+    # }
 
-    db.session.execute(purchase_orders.insert().values(**purchase_order1))
-    db.session.commit()
+    # db.session.execute(purchase_orders.insert().values(**purchase_order1))
+    # db.session.commit()
     
+    purchase_order1 = PurchaseOrder(
+        purchase_id = 1,
+        item_id = 1,
+        order_date = datetime(2023, 9, 21),
+        received_date = datetime(2023, 9, 28),
+        qty = 6,
+    )
+    
+    db.session.add(purchase_order1)
+    db.session.commit() 
     
     request1 = Request(
+        
         purchase_order_id = 1,
-        item_id = 1,
+        # item_id = 1,
         request_type_id = 1,
         status_id = 1,
-        user_id = 3,
+        user_id = 2,
         comment = "sent book about eating pandas instead",
         issue_qty = 1,
         docket_number = "inv-4532",

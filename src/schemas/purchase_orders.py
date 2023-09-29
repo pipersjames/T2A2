@@ -4,10 +4,11 @@ from marshmallow import fields
 class PurchaseOrderSchema(ma.Schema):
     class Meta:
         fields = (
+            "id",
             "purchase_id",
             "item_id",
             "order_date",
-            "received date",
+            "received_date",
             "qty",
         )
 
