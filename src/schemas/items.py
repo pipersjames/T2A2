@@ -9,4 +9,4 @@ class ItemSchema(ma.Schema):
 
 
 item_schema = ItemSchema()
-Items_schema = ItemSchema(many=True)
+items_schema = ItemSchema(many=True)

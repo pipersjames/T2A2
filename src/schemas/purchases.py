@@ -1,11 +1,21 @@
 from main import ma
 from marshmallow import fields
+from schemas.items import items_schema
 
 class PurchaseSchema(ma.Schema):
     class Meta:
-        fields = "id", "purchase_id", "item_id", "order_date", "received_date", "qty"
+        fields = (
+            "id",
+            "po_number",
+            "backorder_suffix",
+            "department_id",
+            "supplier_id",
+            "items",
+        )
 
-        load_only = ['purchase_id', "supp_id"]
+        load_only = ['id']
+        
+    items = fields.Nested(items_schema)
 
 
 purchase_schema = PurchaseSchema()

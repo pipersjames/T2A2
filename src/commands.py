@@ -218,7 +218,7 @@ def seed_db():
     purchase = Purchase.query.filter_by(po_number=443).first()
     item = Item.query.filter_by(internal_code="A5643").first()
 
-    purchase1 = {
+    purchase_order1 = {
         'purchase_id': purchase.id,
         'item_id': item.id,
         'order_date': datetime(2023, 9, 21),
@@ -226,7 +226,7 @@ def seed_db():
         'qty': 10
     }
 
-    db.session.execute(purchase_orders.insert().values(**purchase1))
+    db.session.execute(purchase_orders.insert().values(**purchase_order1))
     db.session.commit()
     
     

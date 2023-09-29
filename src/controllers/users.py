@@ -83,7 +83,7 @@ def create_new_user():
             "password": bcrypt.generate_password_hash(user_json["password"]).decode("utf"),
             "phone_number": user_json["phone_number"],
             "department_id": user_json["department_id"], 
-            "admin": True,
+            "admin": user_json["admin"],
         }
     )
     
