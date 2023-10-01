@@ -10,11 +10,13 @@ suppliers = Blueprint("suppliers", __name__, url_prefix="/suppliers")
 
 # List out all the suppliers - refer get_all_records in crud.py
 @suppliers.route("/", methods=["GET"])
+@jwt_required()
 def get_suppliers():
     return crud.get_all_records(Supplier,suppliers_schema) 
 
 # retuns the information related to the supplier by id. this is given in a integer format in the route heading- refer get_record in crud.py  
 @suppliers.route("/<int:supplier_id>", methods=["GET"])
+@jwt_required()
 def get_supplier(supplier_id: int):
     return crud.get_record(Supplier,supplier_schema,supplier_id)
 

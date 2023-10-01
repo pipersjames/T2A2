@@ -11,11 +11,13 @@ purchases = Blueprint("purchases", __name__, url_prefix="/purchases")
 
 # List out all the purchases - refer get_all_records in crud.py
 @purchases.route("/", methods=["GET"])
+@jwt_required()
 def get_purchases():
     return crud.get_all_records(Purchase,purchases_schema) 
 
 # retuns the information related to the purchase by id. this is given in a integer format in the route heading- refer get_record in crud.py  
 @purchases.route("/<int:purchase_id>", methods=["GET"])
+@jwt_required()
 def get_purchase(purchase_id: int):
     return crud.get_record(Purchase,purchase_schema,purchase_id)
 

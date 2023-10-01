@@ -9,11 +9,13 @@ items = Blueprint("items", __name__, url_prefix="/items")
 
 # List out all the items - refer get_all_records in crud.py
 @items.route("/", methods=["GET"])
+@jwt_required()
 def get_items():
     return crud.get_all_records(Item, items_schema) 
 
 # retuns the information related to the item by id. this is given in a integer format in the route heading- refer get_record in crud.py  
 @items.route("/<int:item_id>", methods=["GET"])
+@jwt_required()
 def get_item(item_id: int):
     return crud.get_record(Item,item_schema,item_id)
 

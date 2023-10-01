@@ -9,18 +9,15 @@ from controllers import crud
 requests = Blueprint("requests", __name__, url_prefix="/requests")
 
 
-
-
-
-
-
 # List out all the requests - refer get_all_records in crud.py
 @requests.route("/", methods=["GET"])
+@jwt_required()
 def get_requests():
      return crud.get_all_records(Request,requests_schema) 
 
 # retuns the information related to the request by id. this is given in a integer format in the route heading- refer get_record in crud.py  
 @requests.route("/<int:request_id>", methods=["GET"])
+@jwt_required()
 def get_request(request_id: int):
     return crud.get_record(Request,request_schema,request_id)
 
@@ -34,7 +31,6 @@ def delete_request(request_id: int):
 #create a new request entry - refer create_new record in crud.py
 @requests.route("/", methods=["POST"])
 @jwt_required()
-@admin_required
 def create_new_request():
     return crud.create_new_record(Request, request_schema)
 

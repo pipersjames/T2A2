@@ -10,11 +10,13 @@ request_types = Blueprint("request_types", __name__, url_prefix="/request_types"
 
 # List out all the request_types - refer get_all_records in crud.py
 @request_types.route("/", methods=["GET"])
+@jwt_required()
 def get_request_types():
     return crud.get_all_records(RequestType,request_types_schema) 
 
 # retuns the information related to the request_type by id. this is given in a integer format in the route heading- refer get_record in crud.py  
 @request_types.route("/<int:request_type_id>", methods=["GET"])
+@jwt_required()
 def get_request_type(request_type_id: int):
     return crud.get_record(RequestType,request_type_schema,request_type_id)
 

@@ -138,21 +138,18 @@ def seed_db():
         po_number = 443,
         backorder_suffix = None,
         department_id = 3,
-        supplier_id = 1,
     )
     
     purchase2 = Purchase(
         po_number = 444,
         backorder_suffix = None,
         department_id = 3,
-        supplier_id = 2,
     )
     
     purchase3 = Purchase(
         po_number = 444,
         backorder_suffix = "AA",
         department_id = 3,
-        supplier_id = 2,
     )
     
     item1 = Item(

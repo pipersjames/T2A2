@@ -9,14 +9,10 @@ class PurchaseSchema(ma.Schema):
             "id",
             "po_number",
             "backorder_suffix",
-            "department_id",
-            "supplier_id",
-            "items",
+            "department_id"
         )
 
-        load_only = ['id']
-        
-    items = fields.Nested(items_schema)
+        load_only = ["id"]
 
 
 purchase_schema = PurchaseSchema()

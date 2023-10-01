@@ -11,7 +11,7 @@ class DepartmentSchema(ma.Schema):
             "open_hours", 
             "warehouse_number"
         )
-
+        load_only = ["id"]
 
 department_schema = DepartmentSchema()
 departments_schema = DepartmentSchema(many=True)

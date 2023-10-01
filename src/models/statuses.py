@@ -5,7 +5,7 @@ class Status(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     
-    description = db.Column(db.String(length=20))
+    description = db.Column(db.String(length=20), unique=True, nullable=False)
     
     requests = db.relationship(
     "Request", 

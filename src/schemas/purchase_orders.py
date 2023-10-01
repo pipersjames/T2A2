@@ -16,8 +16,8 @@ class PurchaseOrderSchema(ma.Schema):
             "received_date",
             "qty",
         )
-        exclude = ("item.id", "purchase.id", "purchase.supplier_id", "purchase.department_id","item.supplier")
-        load_only = ["item_id","purchase_id"]
+        exclude = ("item.id", "purchase.id", "purchase.department_id","item.supplier")
+        load_only = ["id","item_id","purchase_id"]
         
     item = fields.Nested(item_schema, ordered=True)
     purchase = fields.Nested(purchase_schema, ordered=True)

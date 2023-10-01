@@ -366,145 +366,559 @@ code {
 </head>
 
 <body>
-    <h2 id="supplier-request-form-api">Supplier Request form API</h2>
-<p>R1</p>
-<p>When a company grows to a certain extent processes are often compartmentalized to gain efficiences. It is also done to regulate certain actions and ensure that are handled appropriately. This API is designed to take requests from different departments of a business and feed them to the purchasing division to liase/make adjustments accordingly. A similiar comparision would be an email ticketing system. By design the components of the request are rigid enough to streamline workflow to select team members but with enough variability that situations can be explained. Emails and phone numbers of users are in the system so that if the feedback is insuffiecent they can be contacted.</p>
-<p>R2</p>
-<p>Team members handle different suppliers as workload increases and each issues can often take quite a bit of back and forth as well as a good understanding of supplier-client relations. On the other hand some tasks are a simple tick and flick. This API intends to solve this issue by allowing the purchasing officer to get the specific data they need related to the workflow they are handling.</p>
-<p>R3</p>
-<p>I've chosen the relational database model for 2 reasons. Because this is what we have learnt how to handle and it provides a solid amount of data validation to ensure that data entry is correct going into the model. It has good security...</p>
-<p>R4</p>
-<p>R5</p>
-<p>Endpoints ;</p>
-<p>Auth</p>
-<p>register user<br>
-login<br>
-check-session</p>
-<p>Users</p>
-<p>Get all user information – admin only</p>
-<p>Get own user information</p>
-<p>Create new user</p>
-<p>Update admin – admin only</p>
-<p>Update department</p>
-<p>Delete user – own record only</p>
-<p>Delete user any – admin only</p>
-<p>Departments</p>
-<p>Create department – admin only</p>
-<p>Get all departments</p>
-<p>Get specific department information</p>
-<p>Delete department – admin only</p>
-<p>Update department values</p>
-<p>Items</p>
-<p>Create item – in bulk – admin</p>
-<p>Get all items –</p>
-<p>Get specific item information – back fill all PO’s related</p>
-<p>Delete item</p>
-<p>Update information on item</p>
-<p>Suppliers</p>
-<p>Create supplier – admin</p>
-<p>Get all suppliers</p>
-<p>Get specific supplier information</p>
-<p>Delete supplier – cascade delete all items</p>
-<p>Update supplier information – purchasing/admin only</p>
-<p>Requests</p>
-<p>Create request</p>
-<p>Get request</p>
-<p>Get requests based on specific parameters partularly the request type or status</p>
-<p>Update request – access depending on current status</p>
-<p>Delete request – access depending on current status</p>
-<p>Status and request types</p>
-<p>Create new – admin only</p>
-<p>Get all</p>
-<p>Delete – admin only</p>
-<p>Update description admin only</p>
-<p>Purchases</p>
-<p>Create new in bulk – admin only</p>
-<p>Get purchase information – pull data from purchase order table</p>
-<p>Update PO</p>
-<p>Delete PO – cascade delete all entries on the purchase orders table with the same PO – admin only</p>
-<p>Purchase orders ? don’t know if anything is required as this is attended to through the other two tables.</p>
-<p>Auth</p>
-<p>Don’t know.</p>
-<p>R6</p>
-<p><img src="file:///home/james/JamesPipers_T2A2/resources/API ERD.png" alt="API ERD"></p>
-<p>Tables</p>
-<p>Requests</p>
+    <h2 id="supplier-request-form-api">Supplier Request Form API</h2>
+<h4 id="r1-identification-of-the-problem-you-are-trying-to-solve-by-building-this-particular-app">R1 Identification of the problem you are trying to solve by building this particular app.</h4>
+<p>This application aims to solve the problem of organising and streamlining access to team requests on a broad scale.  In the real world, warehouse teams receiving goods are constantly experiencing errors with what is shipped, whether that be incorrect supply of goods, no goods at all or many other scenarios. From a sales perspective an ETA helps to keep customer relations positive. Modifying code or contacting the supplier is a restricted function within the business model for this company. Most dealings with the supplier are funnelled through the purchasing team as well as the job of maintaining data integrity/accuracy for all the orders and this application will streamline the visibility of actions for those that need to know them.</p>
+<h4 id="r2-why-is-it-a-problem-that-needs-solving">R2 Why is it a problem that needs solving?</h4>
+<p>Although you could use pure email communication or over the phone contact this also presents several issues once volumes increase. This makes it difficult to determine urgency, what is easy to resolve vs hard etc. It also helps to regulate what information teams are giving to the purchasing side of the operation. This API is designed to organise these requests for the purchasing team to be able to review in mass in a timely manner, effectively cutting costs or providing excess time for more important tasks. It could also help distribute easier tasks to newer/less skilled team members to reduce the work- load for those with a higher skill ceiling.</p>
+<h4 id="r3-why-have-you-chosen-this-database-system-what-are-the-drawbacks-compared-to-others">R3 Why have you chosen this database system. What are the drawbacks compared to others?</h4>
+<p>I've chosen to use the postgreSQL database system as it provides several quality features that I needed for this build. It's known to have strong data integrity and reliability making it suitable in keeping the input from multiple users clean and organised. It's scalable, as the company grows this will become an important factor in handling all the data and requests. It's open-source and free for use, given the situation as a student this works well. The security options and support are also effective keeping the actions and data visibility within the company itself and restricted to those that need to know.</p>
+<p>Some of the drawbacks of this database are the issues with storage space, resource intensiveness. We may face compatibility issues if we choose to migrate as with PostgreSQL some of the dialect used differs from standard SQL. A large issue that seems problematic is that PostgreSQL is better for transactional applications and less suitable for business intelligence. This may pose a problem if I want to analyse the error rates of transactions against company data or otherwise.</p>
+<h4 id="r4-identify-and-discuss-the-key-functionalities-and-benefits-of-an-orm">R4 Identify and discuss the key functionalities and benefits of an ORM</h4>
+<p>Object-relational mapping is used to bridge the gap between direct database management and object-orientated programming through languages like python or java. The process of abstraction applied to the database operations means that writing raw SQL queries can be kept to a minimum if they are needed at all. This lets the user focus on building data structures using object and classes. This also makes it easier to model the information in the data for later amendments. ORM libraries provide easy to use methods for performing CRUD operations on records. ORM frameworks can also provide their own query languages that are more abstract than raw SQL making it easier to express complex queries. There is also the benefit of caching mechanisms to prevent the need to constantly fetch the data from the database. Overall, the benefits of an ORM provide increased productivity, portability, code maintainability, security and options for rapid proto-typing.</p>
+<h4 id="r5-document-all-endpoints-for-your-api">R5 Document all endpoints for your API</h4>
+<p>note: if the field indicates both jwt and admin required then the bearer token must correspond with a user who has admin access. The logins provided in the login section have both types.</p>
+<h6 id="authorization-endpoints---auth">Authorization endpoints - auth</h6>
+<p>There are a total of 2 endpoints of authorization both POST methods. To access these endpoints, The URL followed by the blueprint directory <code>/auth</code> then the route below will suffice.</p>
+<p><code>/register</code> - takes new user data in Json format and returns a token. will not grant admin access and the password is encrypted upon entry. it will load specified parameters not all the Json. The below is the basic layout of the required Json.</p>
+<pre class="hljs"><code><div>{
+    &quot;first_name&quot; : &quot;Jam&quot;,
+    &quot;second_name&quot;: &quot;Pipers&quot;,
+    &quot;email&quot;: &quot;james@email.com&quot;,
+    &quot;password&quot;: &quot;password&quot;,
+    &quot;phone_number&quot;: &quot;0466664646&quot;,
+    &quot;department_id&quot;: 1 
+}
+</div></code></pre>
+<p><code>/login</code> - takes the user data in Json format and returns a token for the session. The below are 2 users loaded in the seed data. one with admin credentials the other without.</p>
+<pre class="hljs"><code><div>#admin access
+{
+    &quot;email&quot;: &quot;buyer@email.com&quot;, 
+    &quot;password&quot;: &quot;password&quot;
+}
+#non-admin
+{
+    &quot;email&quot;: &quot;seller@email.com&quot;, 
+    &quot;password&quot;: &quot;password2&quot;
+}
+
+</div></code></pre>
+<p>Due to most endpoints having the same functions the data has been organised in a file called crud.py and called into each of the controller routes appending modifications for the unique routes. There are also unique requirements based on admin access.</p>
+<p>corresponding base routes and operations as follows.</p>
 <ul>
-<li>request_id int NOT NULL (PK)</li>
-<li>Purchaseorder_id int NOT NULL (FK)</li>
-<li>request_type_id int NOT NULL (FK)</li>
-<li>status_id int  NOT NULL (FK)</li>
-<li>comments varchar(100) NULLABLE</li>
-<li>request_qty int NULLABLE</li>
-<li>user_id int  NOT NULL (FK)</li>
-<li>docket_number varchar(30) NULLABLE</li>
-<li>completion_comment varchar(100), NULLABLE</li>
-<li>created_at timestamp server_default: current_timestamp NOT NULL</li>
+<li>route &quot;/&quot; method GET - this returns all the records of the table that corresponding with the route. It will return the data in a Json format.</li>
+<li>route &quot;/<a href="int:id">int:id</a>&quot; method GET - this returns the record from the table of the corresponding model by id. the id needs to be put into the route to get this result</li>
+<li>route &quot;/<a href="int:id">int:id</a>&quot; method DELETE - this will delete a record based of the id input from the given table of the corresponding model. out put for a successful deletion as below:</li>
 </ul>
-<p>RequestTypes</p>
+<pre class="hljs"><code><div>{
+    &quot;message&quot;: &quot;Id '3' in items was not found. No records deleted&quot;
+}
+</div></code></pre>
 <ul>
-<li>request_type_id int NOT NUll (PK)</li>
-<li>Description varchar(20) NOT NULL</li>
+<li>route &quot;/&quot; method POST - this will add a new record to the given table based assuming that the Json provided is accurate. specific inputs with corresponding route below.</li>
+<li>route &quot;/<a href="int:id">int:id</a>&quot; method PATCH - this will adjust a current record as determined by the route and given id number. adjustments made will appear in Json format with the field specified altered. examples for the routes given below.</li>
+<li>route &quot;/multiple&quot; method POST - this will allow multiple records in Json format to be injected into a table. organise the Json records in a list. example data for the routes given below.</li>
 </ul>
-<p>Status'<br>
--status_id int NOT NULL (PK)</p>
+<p>Remaining endpoints are as follows and the functionality the same following the crud options;</p>
+<p>Blueprint <code>/departments</code></p>
 <ul>
-<li>description varchar(20) NOT NULL</li>
+<li>route &quot;/&quot; method GET - jwt required</li>
+<li>route &quot;/<a href="int:department_id">int:department_id</a>&quot; method GET - jwt required</li>
+<li>route &quot;/<a href="int:department_id">int:department_id</a>&quot; method DELETE -jwt required and admin status</li>
+<li>route &quot;/&quot; method POST - jwt required and admin status</li>
 </ul>
-<p>Users</p>
+<pre class="hljs"><code><div>{
+    &quot;name&quot;: &quot;awesome&quot;,
+    &quot;location&quot;: &quot;georgia&quot;,
+    &quot;open_hours&quot;: &quot;4-6pm&quot;,
+    &quot;warehouse_number&quot;: 5
+}
+</div></code></pre>
+<p>expected outcome</p>
+<pre class="hljs"><code><div>{
+    &quot;name&quot;: &quot;awesome&quot;,
+    &quot;location&quot;: &quot;georgia&quot;,
+    &quot;open_hours&quot;: &quot;4-6pm&quot;,
+    &quot;warehouse_number&quot;: 5
+}
+</div></code></pre>
 <ul>
-<li>user_id int NOT NULL (PK)</li>
-<li>first_name varchar(20) NOT NULL</li>
-<li>second_name varchar(20) NOT NULL</li>
-<li>email email NOT NULL</li>
-<li>phone varchar(20) NOT NULL</li>
-<li>department_id int  NULLABLE (FK)</li>
+<li>route &quot;/<a href="int:department_id">int:department_id</a>&quot; method PATCH - jwt required and admin status</li>
 </ul>
-<p>Departments</p>
+<pre class="hljs"><code><div>{
+    &quot;name&quot;: &quot;fredzy&quot;,
+    &quot;warehouse_number&quot;: 5
+}
+</div></code></pre>
+<p>expected outcome</p>
+<pre class="hljs"><code><div>{
+    &quot;name&quot;: &quot;fredzy&quot;,
+    &quot;location&quot;: &quot;george st, montgumry&quot;,
+    &quot;open_hours&quot;: &quot;3-5pm&quot;,
+    &quot;warehouse_number&quot;: 5
+}
+
+</div></code></pre>
+<p>Blueprint <code>/items</code></p>
 <ul>
-<li>department_id int NOT NULL (PK)</li>
-<li>name varchar(20) NOT NULL</li>
-<li>location varchar(100) NOT NULL</li>
-<li>open_hours varchar(20) NOT NULL</li>
-<li>warehouse_number int NULLABLE</li>
+<li>route &quot;/&quot; method GET - jwt required</li>
+<li>route &quot;/<a href="int:item_id">int:item_id</a>&quot; method GET - jwt required</li>
+<li>route &quot;/<a href="int:item_id">int:item_id</a>&quot; method DELETE - jwt required and admin status</li>
+<li>route &quot;/&quot; method POST - jwt required and admin status</li>
 </ul>
-<p>Suppliers</p>
+<pre class="hljs"><code><div>{
+    &quot;internal_code&quot;: &quot;j14&quot;,
+    &quot;supp_code&quot; : &quot;j14&quot;,
+    &quot;description&quot;: &quot;words on a page&quot;,
+    &quot;supp_id&quot; : 1
+}
+</div></code></pre>
+<p>expected outcome</p>
+<pre class="hljs"><code><div>{
+    &quot;internal_code&quot;: &quot;j14&quot;,
+    &quot;supp_code&quot;: &quot;j14&quot;,
+    &quot;description&quot;: &quot;words on a page&quot;,
+    &quot;supplier&quot;: {
+        &quot;name&quot;: &quot;Kmart&quot;,
+        &quot;lead_time&quot;: 7,
+        &quot;contact_email&quot;: &quot;kmart@email.com&quot;,
+        &quot;claim_policy&quot;: 14
+    }
+}
+</div></code></pre>
 <ul>
-<li>supplier_id int NOT NULL (PK)</li>
-<li>name varchar(20) NOT NULL</li>
-<li>contact email NOT NULL</li>
-<li>return_policy int NOT NULL</li>
-<li>lead_time int NOT NULL</li>
+<li>route &quot;/multiple&quot; method POST - jwt required and admin status</li>
 </ul>
-<p>Purchases</p>
+<pre class="hljs"><code><div>[
+    {
+        &quot;internal_code&quot;: &quot;j67&quot;,
+        &quot;supp_code&quot; : &quot;j14&quot;,
+        &quot;description&quot;: &quot;words on a page&quot;,
+        &quot;supp_id&quot; : 1
+    },
+    {
+        &quot;internal_code&quot;: &quot;j1222224&quot;,
+        &quot;supp_code&quot; : &quot;j14&quot;,
+        &quot;description&quot;: &quot;words on a page2&quot;,
+        &quot;supp_id&quot; : 1
+    },
+    {
+        &quot;internal_code&quot;: &quot;j14&quot;,
+        &quot;supp_code&quot; : &quot;j14&quot;,
+        &quot;description&quot;: &quot;words on a page3&quot;,
+        &quot;supp_id&quot; : 1
+    }
+]
+</div></code></pre>
+<p>expected outcome</p>
+<pre class="hljs"><code><div>[
+    {
+        &quot;internal_code&quot;: &quot;j67&quot;,
+        &quot;supp_code&quot;: &quot;j14&quot;,
+        &quot;description&quot;: &quot;words on a page&quot;,
+        &quot;supplier&quot;: {
+            &quot;lead_time&quot;: 7,
+            &quot;contact_email&quot;: &quot;kmart@email.com&quot;,
+            &quot;name&quot;: &quot;Kmart&quot;,
+            &quot;claim_policy&quot;: 14
+        }
+    },
+    {
+        &quot;internal_code&quot;: &quot;j1222224&quot;,
+        &quot;supp_code&quot;: &quot;j14&quot;,
+        &quot;description&quot;: &quot;words on a page2&quot;,
+        &quot;supplier&quot;: {
+            &quot;lead_time&quot;: 7,
+            &quot;contact_email&quot;: &quot;kmart@email.com&quot;,
+            &quot;name&quot;: &quot;Kmart&quot;,
+            &quot;claim_policy&quot;: 14
+        }
+    },
+    {
+        &quot;internal_code&quot;: &quot;j14&quot;,
+        &quot;supp_code&quot;: &quot;j14&quot;,
+        &quot;description&quot;: &quot;words on a page3&quot;,
+        &quot;supplier&quot;: {
+            &quot;lead_time&quot;: 7,
+            &quot;contact_email&quot;: &quot;kmart@email.com&quot;,
+            &quot;name&quot;: &quot;Kmart&quot;,
+            &quot;claim_policy&quot;: 14
+        }
+    }
+]
+</div></code></pre>
 <ul>
-<li>PO_id int NOT NULL (PK)</li>
-<li>PO_number int NOT NULL</li>
-<li>Backorder_suffix varchar(2) NULLABLE</li>
-<li>warehouse_id int NOT NULL (FK)</li>
-<li>supplier_id int NOT NULL (FK)</li>
+<li>route &quot;/<a href="int:item_id">int:item_id</a>&quot; method PATCH - jwt required and admin status, using the id 2 and the below:</li>
 </ul>
-<p>Items</p>
+<pre class="hljs"><code><div>{
+    &quot;internal_code&quot; :&quot;j4ffff3&quot;,
+    &quot;supp_code&quot;: &quot;j43&quot;,
+    &quot;description&quot;: &quot;john&quot;,
+    &quot;supp_id&quot;: 1
+}
+</div></code></pre>
+<p>expected outcome</p>
+<pre class="hljs"><code><div>{
+    &quot;internal_code&quot;: &quot;j4ffff3&quot;,
+    &quot;supp_code&quot;: &quot;j43&quot;,
+    &quot;description&quot;: &quot;john&quot;,
+    &quot;supplier&quot;: {
+        &quot;lead_time&quot;: 7,
+        &quot;contact_email&quot;: &quot;kmart@email.com&quot;,
+        &quot;name&quot;: &quot;Kmart&quot;,
+        &quot;claim_policy&quot;: 14
+    }
+}
+
+</div></code></pre>
+<p>Blueprint <code>/purchase_orders</code></p>
 <ul>
-<li>item_id int NOT NULL (PK)</li>
-<li>internal_code varchar(10) NOT NULL</li>
-<li>supplier_code varchar(10) Unique NOT NULL</li>
-<li>description text NULLABLE</li>
-<li>unit_of_measure varchar(10) NOT NULL</li>
-<li>supplier_id id NOT NULL (FK)</li>
+<li>route &quot;/&quot; method GET - jwt required</li>
+<li>route &quot;/<a href="int:purchase_order_id">int:purchase_order_id</a>&quot; method GET - jwt required</li>
+<li>route &quot;/<a href="int:purchase_order_id">int:purchase_order_id</a>&quot; method DELETE - jwt required and admin status</li>
+<li>route &quot;/&quot; method POST - jwt required and admin status</li>
 </ul>
-<p>PurchaseOrders - PO's and Items</p>
+<pre class="hljs"><code><div>{
+    &quot;purchase_id&quot;: 1,
+    &quot;item_id&quot;: 4,
+    &quot;order_date&quot;: &quot;2023-09-21&quot;,
+    &quot;qty&quot;: 15
+}
+
+</div></code></pre>
+<p>expected outcome</p>
+<pre class="hljs"><code><div>{
+    &quot;purchase&quot;: {
+        &quot;po_number&quot;: 443,
+        &quot;backorder_suffix&quot;: &quot;A&quot;
+    },
+    &quot;item&quot;: {
+        &quot;internal_code&quot;: &quot;B5973&quot;,
+        &quot;supp_code&quot;: &quot;SH5KS&quot;,
+        &quot;description&quot;: &quot;Reading glasses&quot;
+    },
+    &quot;order_date&quot;: &quot;2023-09-21&quot;,
+    &quot;received_date&quot;: null,
+    &quot;qty&quot;: 15
+}
+</div></code></pre>
 <ul>
-<li>purchase_order_id int NOT NULL (PK)</li>
-<li>Purchase_id int NOT NULL (FK)</li>
-<li>item_id int NOT NULL (FK)</li>
-<li>order_date date NOT NULL</li>
-<li>received_date date NULLABLE</li>
-<li>item_qty int NOT NULL</li>
+<li>route &quot;/multiple&quot; method POST - jwt required and admin status, multiple entries of the set out in a list can be logged using this route</li>
+<li>route &quot;/<a href="int:purchase_order_id">int:purchase_order_id</a>&quot; method PATCH - jwt required and admin status using id 1 as the route</li>
 </ul>
-<p>R7</p>
-<p>R8</p>
-<p>R9</p>
+<pre class="hljs"><code><div>{
+    &quot;order_date&quot;: &quot;2023-09-22&quot;,
+    &quot;qty&quot;: 20
+}
+</div></code></pre>
+<p>expected outcome</p>
+<pre class="hljs"><code><div>{
+    &quot;purchase&quot;: {
+        &quot;po_number&quot;: 443,
+        &quot;backorder_suffix&quot;: &quot;A&quot;
+    },
+    &quot;item&quot;: {
+        &quot;internal_code&quot;: &quot;A5643&quot;,
+        &quot;supp_code&quot;: &quot;read-46&quot;,
+        &quot;description&quot;: &quot;book of love&quot;
+    },
+    &quot;order_date&quot;: &quot;2023-09-22&quot;,
+    &quot;received_date&quot;: &quot;2023-09-28&quot;,
+    &quot;qty&quot;: 20
+}
+</div></code></pre>
+<p>Blueprint <code>/purchases</code></p>
+<ul>
+<li>route &quot;/&quot; method GET - jwt required</li>
+<li>route &quot;/<a href="int:purchase_id">int:purchase_id</a>&quot; method GET - jwt required</li>
+<li>route &quot;/<a href="int:purchase_id">int:purchase_id</a>&quot; method DELETE - jwt required and admin status</li>
+<li>route &quot;/&quot; method POST - jwt required and admin status</li>
+</ul>
+<pre class="hljs"><code><div>{
+        &quot;po_number&quot; : 443333333,
+        &quot;department_id&quot;: 3
+}
+</div></code></pre>
+<p>expected outcome</p>
+<pre class="hljs"><code><div>{
+    &quot;po_number&quot;: 443333333,
+    &quot;backorder_suffix&quot;: &quot;A&quot;,
+    &quot;department_id&quot;: 3
+}
+</div></code></pre>
+<ul>
+<li>route &quot;/multiple&quot; method POST - jwt required and admin status</li>
+<li>route &quot;/<a href="int:purchase_id">int:purchase_id</a>&quot; method PATCH - jwt required and admin status, using id 1 as the route</li>
+</ul>
+<pre class="hljs"><code><div>{
+        &quot;po_number&quot; : 443333333,
+        &quot;department_id&quot;: 1
+}
+</div></code></pre>
+<p>expected outcome</p>
+<pre class="hljs"><code><div>{
+    &quot;po_number&quot;: 30000,
+    &quot;backorder_suffix&quot;: &quot;A&quot;,
+    &quot;department_id&quot;: 1
+}
+</div></code></pre>
+<p>Blueprint <code>/request_types</code></p>
+<ul>
+<li>route &quot;/&quot; method GET - jwt required</li>
+<li>route &quot;/<a href="int:request_type_id">int:request_type_id</a>&quot; method GET - jwt required</li>
+<li>route &quot;/<a href="int:request_type_id">int:request_type_id</a>&quot; method DELETE - jwt required and admin status</li>
+<li>route &quot;/&quot; method POST - jwt required and admin status</li>
+</ul>
+<pre class="hljs"><code><div>{
+ &quot;description&quot;: &quot;PO tracking&quot;
+}
+</div></code></pre>
+<p>expected outcome</p>
+<pre class="hljs"><code><div>{
+    &quot;description&quot;: &quot;PO tracking&quot;
+}
+</div></code></pre>
+<ul>
+<li>route &quot;/<a href="int:request_type_id">int:request_type_id</a>&quot; method PATCH - jwt required and admin status</li>
+</ul>
+<pre class="hljs"><code><div>{
+ &quot;description&quot;: &quot;jogging&quot;
+}
+</div></code></pre>
+<p>expected outcome</p>
+<pre class="hljs"><code><div>{
+ &quot;description&quot;: &quot;jogging&quot;
+}
+</div></code></pre>
+<p>Blueprint <code>/requests</code></p>
+<ul>
+<li>route &quot;/&quot; method GET - jwt required</li>
+<li>route &quot;/<a href="int:request_id">int:request_id</a>&quot; method GET - jwt required</li>
+<li>route &quot;/<a href="int:request_id">int:request_id</a>&quot; method DELETE - jwt required and admin status</li>
+<li>route &quot;/&quot; method POST - jwt required</li>
+</ul>
+<pre class="hljs"><code><div>{ 
+    &quot;purchase_order_id&quot;: 1,
+    &quot;request_type_id&quot;: 1,
+    &quot;status_id&quot;: 1, 
+    &quot;user_id&quot;: 1,
+    &quot;comment&quot;: &quot;the fish got out of the book&quot;,
+    &quot;issue_qty&quot; : 2, 
+    &quot;docket_number&quot;: &quot;g56&quot;
+}
+</div></code></pre>
+<p>expected outcome</p>
+<pre class="hljs"><code><div>{
+    &quot;purchase_order&quot;: {
+        &quot;purchase&quot;: {
+            &quot;po_number&quot;: 30000,
+            &quot;backorder_suffix&quot;: &quot;A&quot;
+        },
+        &quot;item&quot;: {
+            &quot;internal_code&quot;: &quot;A5643&quot;,
+            &quot;supp_code&quot;: &quot;read-46&quot;,
+            &quot;description&quot;: &quot;book of love&quot;
+        },
+        &quot;order_date&quot;: &quot;2023-09-22&quot;,
+        &quot;received_date&quot;: &quot;2023-09-28&quot;,
+        &quot;qty&quot;: 20
+    },
+    &quot;comment&quot;: &quot;the fish got out of the book&quot;,
+    &quot;issue_qty&quot;: 2,
+    &quot;docket_number&quot;: &quot;g56&quot;,
+    &quot;created_at&quot;: &quot;2023-10-01T21:39:14.835825&quot;,
+    &quot;request_type&quot;: {
+        &quot;description&quot;: &quot;incorrect supply&quot;
+    },
+    &quot;status&quot;: {
+        &quot;description&quot;: &quot;new&quot;
+    },
+    &quot;user&quot;: {
+        &quot;first_name&quot;: &quot;buyer&quot;,
+        &quot;second_name&quot;: &quot;Colbert&quot;,
+        &quot;email&quot;: &quot;buyer@email.com&quot;,
+        &quot;phone_number&quot;: &quot;0433345921&quot;,
+        &quot;department&quot;: {
+            &quot;name&quot;: &quot;fredzy&quot;,
+            &quot;location&quot;: &quot;george st, montgumry&quot;,
+            &quot;open_hours&quot;: &quot;3-5pm&quot;,
+            &quot;warehouse_number&quot;: 5
+        }
+    },
+    &quot;completion_comment&quot;: null
+}
+</div></code></pre>
+<ul>
+<li>route &quot;/<a href="int:request_id">int:request_id</a>&quot; method PATCH - jwt required</li>
+</ul>
+<p>Blueprint <code>/statuses</code></p>
+<ul>
+<li>route &quot;/&quot; method GET - jwt required</li>
+<li>route &quot;/<a href="int:status_id">int:status_id</a>&quot; method GET - jwt required</li>
+<li>route &quot;/<a href="int:status_id">int:status_id</a>&quot; method DELETE - jwt required and admin status</li>
+<li>route &quot;/&quot; method POST - jwt required and admin status</li>
+</ul>
+<pre class="hljs"><code><div>{
+ &quot;description&quot;: &quot;PO tracking&quot;
+}
+</div></code></pre>
+<p>expected outcome</p>
+<pre class="hljs"><code><div>{
+    &quot;description&quot;: &quot;PO tracking&quot;
+}
+</div></code></pre>
+<ul>
+<li>route &quot;/<a href="int:status_id">int:status_id</a>&quot; method PATCH - jwt required and admin status</li>
+</ul>
+<pre class="hljs"><code><div>{
+ &quot;description&quot;: &quot;jogging&quot;
+}
+</div></code></pre>
+<p>expected outcome</p>
+<pre class="hljs"><code><div>{
+ &quot;description&quot;: &quot;jogging&quot;
+}
+</div></code></pre>
+<p>Blueprint <code>/suppliers</code></p>
+<ul>
+<li>route &quot;/&quot; method GET - jwt required</li>
+<li>route &quot;/<a href="int:supplier_id">int:supplier_id</a>&quot; method GET - jwt required</li>
+<li>route &quot;/<a href="int:supplier_id">int:supplier_id</a>&quot; method DELETE - jwt required and admin status</li>
+<li>route &quot;/&quot; method POST - jwt required and admin status</li>
+</ul>
+<pre class="hljs"><code><div>{
+    &quot;name&quot;: &quot;wishful thinking&quot;,
+    &quot;contact_email&quot;: &quot;wishful@thinking.com&quot;,
+    &quot;claim_policy&quot;: 30,
+    &quot;lead_time&quot;: 7
+}
+</div></code></pre>
+<p>expected outcome</p>
+<pre class="hljs"><code><div>{
+    &quot;name&quot;: &quot;wishful thinking&quot;,
+    &quot;claim_policy&quot;: 30,
+    &quot;lead_time&quot;: 7,
+    &quot;contact_email&quot;: &quot;wishful@thinking.com&quot;
+}
+</div></code></pre>
+<ul>
+<li>route &quot;/<a href="int:supplier_id">int:supplier_id</a>&quot; method PATCH - jwt required and admin status, using the ID as 1</li>
+</ul>
+<pre class="hljs"><code><div>{
+    &quot;name&quot;: &quot;wishful place&quot;,
+    &quot;contact_email&quot;: &quot;wishful@thinking.com&quot;,
+    &quot;claim_policy&quot;: 30,
+    &quot;lead_time&quot;: 7
+}
+
+</div></code></pre>
+<p>expected outcome</p>
+<pre class="hljs"><code><div>{
+    &quot;name&quot;: &quot;wishful place&quot;,
+    &quot;claim_policy&quot;: 30,
+    &quot;lead_time&quot;: 7,
+    &quot;contact_email&quot;: &quot;wishful@thinking.com&quot;
+}
+</div></code></pre>
+<p>Blueprint <code>/users</code></p>
+<ul>
+<li>route &quot;/all&quot; method GET - this is the generic all as discussed in the crud section above - jwt required and admin status</li>
+<li>route &quot;/<a href="int:user_id">int:user_id</a>&quot; method GET - jwt required and admin status</li>
+<li>route &quot;/&quot; method GET - this returns the data specific to the current user by comparing the token header with the user table - jwt required</li>
+<li>route &quot;/<a href="int:user_id">int:user_id</a>&quot; method DELETE - jwt required and admin status</li>
+<li>route &quot;/&quot; method POST - jwt required and admin status</li>
+</ul>
+<pre class="hljs"><code><div>{
+            &quot;first_name&quot; : &quot;James&quot;,
+            &quot;second_name&quot;: &quot;Pipers&quot;,
+            &quot;email&quot;: &quot;jamespop@email.com&quot;,
+            &quot;password&quot;: &quot;password&quot;,
+            &quot;phone_number&quot;: &quot;0466664646&quot;,
+            &quot;department_id&quot;: 1
+        }
+
+</div></code></pre>
+<p>expected outcome</p>
+<pre class="hljs"><code><div>{
+    &quot;first_name&quot;: &quot;James&quot;,
+    &quot;second_name&quot;: &quot;Pipers&quot;,
+    &quot;email&quot;: &quot;jamespop@email.com&quot;,
+    &quot;phone_number&quot;: &quot;0466664646&quot;,
+    &quot;department&quot;: {
+        &quot;name&quot;: &quot;fredzy&quot;,
+        &quot;location&quot;: &quot;george st, montgumry&quot;,
+        &quot;open_hours&quot;: &quot;3-5pm&quot;,
+        &quot;warehouse_number&quot;: 5
+    }
+}
+</div></code></pre>
+<ul>
+<li>route &quot;/<a href="int:user_id">int:user_id</a>&quot; method PATCH - jwt required and admin status, applied to the ID of 2</li>
+</ul>
+<pre class="hljs"><code><div>{
+            &quot;first_name&quot; : &quot;Fred&quot;
+        }
+</div></code></pre>
+<p>expected outcome</p>
+<pre class="hljs"><code><div>{
+    &quot;first_name&quot;: &quot;Fred&quot;,
+    &quot;second_name&quot;: &quot;Colbert&quot;,
+    &quot;email&quot;: &quot;seller@email.com&quot;,
+    &quot;phone_number&quot;: &quot;0433345921&quot;,
+    &quot;department&quot;: {
+        &quot;name&quot;: &quot;sales&quot;,
+        &quot;location&quot;: &quot;george st, montgumry&quot;,
+        &quot;open_hours&quot;: &quot;3-5pm&quot;,
+        &quot;warehouse_number&quot;: null
+    }
+}
+</div></code></pre>
+<h4 id="r6-an-erd-for-your-app">R6 An ERD for your app</h4>
+<p><img src="file:///home/james/JamesPipers_T2A2/docs/ERD.png" alt="ERD"></p>
+<h4 id="r7-detail-any-third-party-services-that-your-app-will-use">R7 Detail any third party services that your app will use</h4>
+<p>It's most likely the app will use a hosting service to store and access the data uploaded, the exact service is not yet known. An email service to send emails to teams regarding the completion of request and/or to the purchasing team to notify of new requests. potentially having some third-party authentication services could help round out the security in the application. Might also look at third-party support for data analysis of errors raised by warehouse teams.</p>
+<h4 id="r8--r9-describe-your-projects-models-in-terms-of-the-relationships-they-have-with-each-other--discuss-the-database-relations-to-be-implemented-in-your-application">R8 &amp; R9 Describe your projects models in terms of the relationships they have with each other &amp; Discuss the database relations to be implemented in your application</h4>
+<p>The relations implemented in the database primarily focus on the requests table. You'll find the relationships create a tree like structure with the requests at the top. All the models and their relations as below.</p>
+<p>departments</p>
+<ul>
+<li>zero to many relationship with users. Basically, they are areas or divisions that each of the users populate/exist within and function within. All users related to the department are deleted once the department is.</li>
+<li>zero to many relationship with purchases. Purchases are made for each of the departments and must correlate with at least one of the departments. once a department is deleted all the related purchases</li>
+</ul>
+<p>items</p>
+<ul>
+<li>zero to many relationship with suppliers. many different items are related to a single supplier and are purchased from them. if the supplier is deleted so will all the items related.</li>
+<li>many to many relationship with purchases. any number of purchases can have any number of items this relationship is linked through the purchase orders table. will delete all purchase order records related if removed.</li>
+</ul>
+<p>purchase orders</p>
+<ul>
+<li>many to many relationship of items and purchases. junction table to support the relationship.</li>
+</ul>
+<p>purchases</p>
+<ul>
+<li>zero to many relationship with departments. Purchases are made for each of the departments and must correlate with at least one of the departments. if departments are deleted all associated purchases are deleted.</li>
+<li>many to many relationship with items. any number of purchases can have any number of items this relationship is linked through the purchase orders table. upon deletion all related purchase order records are removed.</li>
+</ul>
+<p>request types</p>
+<ul>
+<li>one to many relationship with requests. each request must have at least one request type. will delete associated requests if removed.</li>
+</ul>
+<p>requests</p>
+<ul>
+<li>one to many relationship with request types. each request must have at least one request type. deleting the request type will delete associated requests.</li>
+<li>one to many relationship with statuses. each request must have at least one status. This is intended to change over time through the patch endpoint. deleting the status will delete associated requests.</li>
+<li>one to many relationship with the user. each request must have a user assigned to it. deleting a user will delete all associated requests</li>
+<li>one to many relationship with purchase orders. each purchase order can have multiple requests to it's name. deleting each purchase order will delete all associated requests.<br>
+statuses</li>
+<li>one to many relationship with requests. each request must have at least one status. This is intended to change over time through the patch endpoint. deleting a status will delete all associated requests.<br>
+suppliers</li>
+<li>zero to many relationship with items. many different items are related to a single supplier and are purchased from them. deleting a supplier will delete all items related.<br>
+users</li>
+<li>one to many relationship with the requests. each request must have a user assigned to it. deleting a user will delete all related request records.</li>
+</ul>
+<h4 id="r10-describe-the-way-tasks-are-allocated-and-tracked-in-your-project">R10 Describe the way tasks are allocated and tracked in your project</h4>
+<p>Tasks are put into a kanban style view so that each task can be address. initially items of importance and precedence are at the top to provide direction to what needs to be achieved next. Image below highlights the key areas of focus in progression. Throughout the process git additions were pushed onto a remote repository to ensure progress was not lost. At this stage the product still needs to have some testing applied to it and then go back through refinement before release. When working as a part of larger team it would be ideal to implement collaboration techniques and sharing this remote repository. Using the Kanban board approach each team member can be assigned smaller tasks that can all be uploaded into the same project.</p>
+<p>git repository - https://github.com/pipersjames/T2A2</p>
+<p><img src="file:///home/james/JamesPipers_T2A2/docs/kanban.JPG" alt="kanban"></p>
 
 </body>
 

@@ -10,11 +10,13 @@ departments = Blueprint("departments", __name__, url_prefix="/departments")
 
 # List out all the departments - refer get_all_records in crud.py
 @departments.route("/", methods=["GET"])
+@jwt_required()
 def get_departments():
     return crud.get_all_records(Department,departments_schema) 
 
 # retuns the information related to the department by id. this is given in a integer format in the route heading- refer get_record in crud.py  
 @departments.route("/<int:department_id>", methods=["GET"])
+@jwt_required()
 def get_department(department_id: int):
     return crud.get_record(Department,department_schema,department_id)
 

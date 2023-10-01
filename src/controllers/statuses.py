@@ -10,11 +10,13 @@ statuses = Blueprint("statuses", __name__, url_prefix="/statuses")
 
 # List out all the status - refer get_all_records in crud.py
 @statuses.route("/", methods=["GET"])
+@jwt_required()
 def get_all_status():
     return crud.get_all_records(Status, statuses_schema) 
 
 # retuns the information related to the status by id. this is given in a integer format in the route heading- refer get_record in crud.py  
 @statuses.route("/<int:status_id>", methods=["GET"])
+@jwt_required()
 def get_status(status_id: int):
     return crud.get_record(Status, status_schema,status_id)
 
