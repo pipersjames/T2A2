@@ -22,7 +22,7 @@ Object-relational mapping is used to bridge the gap between direct database mana
 
 note: if the field indicates both jwt and admin required then the bearer token must correspond with a user who has admin access. The logins provided in the login section have both types.
 
-###### Authorization endpoints - auth
+### Authorization endpoints - auth
 
 There are a total of 2 endpoints of authorization both POST methods. To access these endpoints, The URL followed by the blueprint directory ```/auth``` then the route below will suffice.
 
@@ -72,7 +72,7 @@ corresponding base routes and operations as follows.
 
 Remaining endpoints are as follows and the functionality the same following the crud options;
 
-Blueprint ```/departments```
+### Blueprint ```/departments```
 * route "/" method GET - jwt required
 * route "/<int:department_id>" method GET - jwt required
 * route "/<int:department_id>" method DELETE -jwt required and admin status
@@ -111,7 +111,7 @@ expected outcome
 }
 
 ```
-Blueprint ```/items```
+### Blueprint ```/items```
 * route "/" method GET - jwt required
 * route "/<int:item_id>" method GET - jwt required
 * route "/<int:item_id>" method DELETE - jwt required and admin status
@@ -224,7 +224,7 @@ expected outcome
 
 ```
 
-Blueprint ```/purchase_orders```
+### Blueprint ```/purchase_orders```
 * route "/" method GET - jwt required
 * route "/<int:purchase_order_id>" method GET - jwt required
 * route "/<int:purchase_order_id>" method DELETE - jwt required and admin status
@@ -281,7 +281,7 @@ expected outcome
 }
 ```
 
-Blueprint ```/purchases```
+### Blueprint ```/purchases```
 * route "/" method GET - jwt required
 * route "/<int:purchase_id>" method GET - jwt required
 * route "/<int:purchase_id>" method DELETE - jwt required and admin status
@@ -317,7 +317,7 @@ expected outcome
 }
 ```
 
-Blueprint ```/request_types```
+### Blueprint ```/request_types```
 * route "/" method GET - jwt required
 * route "/<int:request_type_id>" method GET - jwt required
 * route "/<int:request_type_id>" method DELETE - jwt required and admin status
@@ -345,7 +345,7 @@ expected outcome
  "description": "jogging"
 }
 ```
-Blueprint ```/requests```
+### Blueprint ```/requests```
 * route "/" method GET - jwt required
 * route "/<int:request_id>" method GET - jwt required
 * route "/<int:request_id>" method DELETE - jwt required and admin status
@@ -405,7 +405,7 @@ expected outcome
 ```
 * route "/<int:request_id>" method PATCH - jwt required
 
-Blueprint ```/statuses```
+### Blueprint ```/statuses```
 * route "/" method GET - jwt required
 * route "/<int:status_id>" method GET - jwt required
 * route "/<int:status_id>" method DELETE - jwt required and admin status
@@ -434,7 +434,7 @@ expected outcome
 }
 ```
 
-Blueprint ```/suppliers```
+### Blueprint ```/suppliers```
 * route "/" method GET - jwt required
 * route "/<int:supplier_id>" method GET - jwt required
 * route "/<int:supplier_id>" method DELETE - jwt required and admin status
@@ -476,7 +476,7 @@ expected outcome
 }
 ```
 
-Blueprint ```/users```
+### Blueprint ```/users```
 * route "/all" method GET - this is the generic all as discussed in the crud section above - jwt required and admin status
 * route "/<int:user_id>" method GET - jwt required and admin status
 * route "/" method GET - this returns the data specific to the current user by comparing the token header with the user table - jwt required

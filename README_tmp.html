@@ -378,7 +378,7 @@ code {
 <p>Object-relational mapping is used to bridge the gap between direct database management and object-orientated programming through languages like python or java. The process of abstraction applied to the database operations means that writing raw SQL queries can be kept to a minimum if they are needed at all. This lets the user focus on building data structures using object and classes. This also makes it easier to model the information in the data for later amendments. ORM libraries provide easy to use methods for performing CRUD operations on records. ORM frameworks can also provide their own query languages that are more abstract than raw SQL making it easier to express complex queries. There is also the benefit of caching mechanisms to prevent the need to constantly fetch the data from the database. Overall, the benefits of an ORM provide increased productivity, portability, code maintainability, security and options for rapid proto-typing.</p>
 <h4 id="r5-document-all-endpoints-for-your-api">R5 Document all endpoints for your API</h4>
 <p>note: if the field indicates both jwt and admin required then the bearer token must correspond with a user who has admin access. The logins provided in the login section have both types.</p>
-<h6 id="authorization-endpoints---auth">Authorization endpoints - auth</h6>
+<h3 id="authorization-endpoints---auth">Authorization endpoints - auth</h3>
 <p>There are a total of 2 endpoints of authorization both POST methods. To access these endpoints, The URL followed by the blueprint directory <code>/auth</code> then the route below will suffice.</p>
 <p><code>/register</code> - takes new user data in Json format and returns a token. will not grant admin access and the password is encrypted upon entry. it will load specified parameters not all the Json. The below is the basic layout of the required Json.</p>
 <pre class="hljs"><code><div>{
@@ -420,7 +420,7 @@ code {
 <li>route &quot;/multiple&quot; method POST - this will allow multiple records in Json format to be injected into a table. organise the Json records in a list. example data for the routes given below.</li>
 </ul>
 <p>Remaining endpoints are as follows and the functionality the same following the crud options;</p>
-<p>Blueprint <code>/departments</code></p>
+<h3 id="blueprint-departments">Blueprint <code>/departments</code></h3>
 <ul>
 <li>route &quot;/&quot; method GET - jwt required</li>
 <li>route &quot;/<a href="int:department_id">int:department_id</a>&quot; method GET - jwt required</li>
@@ -459,7 +459,7 @@ code {
 }
 
 </div></code></pre>
-<p>Blueprint <code>/items</code></p>
+<h3 id="blueprint-items">Blueprint <code>/items</code></h3>
 <ul>
 <li>route &quot;/&quot; method GET - jwt required</li>
 <li>route &quot;/<a href="int:item_id">int:item_id</a>&quot; method GET - jwt required</li>
@@ -571,7 +571,7 @@ code {
 }
 
 </div></code></pre>
-<p>Blueprint <code>/purchase_orders</code></p>
+<h3 id="blueprint-purchaseorders">Blueprint <code>/purchase_orders</code></h3>
 <ul>
 <li>route &quot;/&quot; method GET - jwt required</li>
 <li>route &quot;/<a href="int:purchase_order_id">int:purchase_order_id</a>&quot; method GET - jwt required</li>
@@ -627,7 +627,7 @@ code {
     &quot;qty&quot;: 20
 }
 </div></code></pre>
-<p>Blueprint <code>/purchases</code></p>
+<h3 id="blueprint-purchases">Blueprint <code>/purchases</code></h3>
 <ul>
 <li>route &quot;/&quot; method GET - jwt required</li>
 <li>route &quot;/<a href="int:purchase_id">int:purchase_id</a>&quot; method GET - jwt required</li>
@@ -662,7 +662,7 @@ code {
     &quot;department_id&quot;: 1
 }
 </div></code></pre>
-<p>Blueprint <code>/request_types</code></p>
+<h3 id="blueprint-requesttypes">Blueprint <code>/request_types</code></h3>
 <ul>
 <li>route &quot;/&quot; method GET - jwt required</li>
 <li>route &quot;/<a href="int:request_type_id">int:request_type_id</a>&quot; method GET - jwt required</li>
@@ -690,7 +690,7 @@ code {
  &quot;description&quot;: &quot;jogging&quot;
 }
 </div></code></pre>
-<p>Blueprint <code>/requests</code></p>
+<h3 id="blueprint-requests">Blueprint <code>/requests</code></h3>
 <ul>
 <li>route &quot;/&quot; method GET - jwt required</li>
 <li>route &quot;/<a href="int:request_id">int:request_id</a>&quot; method GET - jwt required</li>
@@ -751,7 +751,7 @@ code {
 <ul>
 <li>route &quot;/<a href="int:request_id">int:request_id</a>&quot; method PATCH - jwt required</li>
 </ul>
-<p>Blueprint <code>/statuses</code></p>
+<h3 id="blueprint-statuses">Blueprint <code>/statuses</code></h3>
 <ul>
 <li>route &quot;/&quot; method GET - jwt required</li>
 <li>route &quot;/<a href="int:status_id">int:status_id</a>&quot; method GET - jwt required</li>
@@ -779,7 +779,7 @@ code {
  &quot;description&quot;: &quot;jogging&quot;
 }
 </div></code></pre>
-<p>Blueprint <code>/suppliers</code></p>
+<h3 id="blueprint-suppliers">Blueprint <code>/suppliers</code></h3>
 <ul>
 <li>route &quot;/&quot; method GET - jwt required</li>
 <li>route &quot;/<a href="int:supplier_id">int:supplier_id</a>&quot; method GET - jwt required</li>
@@ -820,7 +820,7 @@ code {
     &quot;contact_email&quot;: &quot;wishful@thinking.com&quot;
 }
 </div></code></pre>
-<p>Blueprint <code>/users</code></p>
+<h3 id="blueprint-users">Blueprint <code>/users</code></h3>
 <ul>
 <li>route &quot;/all&quot; method GET - this is the generic all as discussed in the crud section above - jwt required and admin status</li>
 <li>route &quot;/<a href="int:user_id">int:user_id</a>&quot; method GET - jwt required and admin status</li>
