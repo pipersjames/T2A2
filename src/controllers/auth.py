@@ -4,7 +4,6 @@ from datetime import timedelta
 from main import db, bcrypt
 from models.users import User
 from schemas.users import user_schema
-from werkzeug.exceptions import BadRequest
 
 auths = Blueprint("auth", __name__, url_prefix="/auths")
 

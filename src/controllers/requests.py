@@ -8,10 +8,16 @@ from controllers import crud
 
 requests = Blueprint("requests", __name__, url_prefix="/requests")
 
+
+
+
+
+
+
 # List out all the requests - refer get_all_records in crud.py
 @requests.route("/", methods=["GET"])
 def get_requests():
-    return crud.get_all_records(Request,requests_schema) 
+     return crud.get_all_records(Request,requests_schema) 
 
 # retuns the information related to the request by id. this is given in a integer format in the route heading- refer get_record in crud.py  
 @requests.route("/<int:request_id>", methods=["GET"])

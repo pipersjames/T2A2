@@ -12,5 +12,6 @@ class Supplier(db.Model):
     
     items = db.relationship(
         "Item", 
-        back_populates="supplier"
+        back_populates="supplier",
+        cascade="all, delete"
         )

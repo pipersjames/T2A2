@@ -5,9 +5,9 @@ class Department(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     
-    name = db.Column(db.String(length=20), unique=True)
-    location = db.Column(db.String(length=100))
-    open_hours = db.Column(db.String(length=20))
+    name = db.Column(db.String(length=20), unique=True, nullable=False)
+    location = db.Column(db.String(length=100),nullable=False)
+    open_hours = db.Column(db.String(length=20), nullable=False)
     warehouse_number = db.Column(db.Integer, nullable=True)
    
    # relationships

@@ -4,6 +4,7 @@ from schemas.items import items_schema
 
 class PurchaseSchema(ma.Schema):
     class Meta:
+        ordered = True
         fields = (
             "id",
             "po_number",

@@ -23,7 +23,8 @@ class User(db.Model):
     
     requests = db.relationship(
     "Request", 
-    back_populates="user"
+    back_populates="user",
+    cascade="all, delete"
     )
                               
                               

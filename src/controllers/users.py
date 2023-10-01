@@ -10,7 +10,7 @@ users = Blueprint("users", __name__, url_prefix="/users")
 
    
 # List out all the users - refer get_all_records in crud.py - admin protected (refer admin_required in decorators)
-@users.route("/", methods=["GET"])
+@users.route("/all", methods=["GET"])
 @jwt_required()
 @admin_required
 def get_users():

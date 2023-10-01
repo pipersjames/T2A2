@@ -214,21 +214,6 @@ def seed_db():
         item6,])
     db.session.commit()
     
-    # #junction table direct data insert
-    # purchase = Purchase.query.filter_by(po_number=443).first()
-    # item = Item.query.filter_by(internal_code="A5643").first()
-
-    # purchase_order1 = {
-    #     'purchase_id': purchase.id,
-    #     'item_id': item.id,
-    #     'order_date': datetime(2023, 9, 21),
-    #     'received_date': datetime(2023, 9, 28),
-    #     'qty': 10
-    # }
-
-    # db.session.execute(purchase_orders.insert().values(**purchase_order1))
-    # db.session.commit()
-    
     purchase_order1 = PurchaseOrder(
         purchase_id = 1,
         item_id = 1,
@@ -243,7 +228,6 @@ def seed_db():
     request1 = Request(
         
         purchase_order_id = 1,
-        # item_id = 1,
         request_type_id = 1,
         status_id = 1,
         user_id = 2,

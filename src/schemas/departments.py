@@ -3,6 +3,7 @@ from marshmallow import fields
 
 class DepartmentSchema(ma.Schema):
     class Meta:
+        ordered = True
         fields = (
             "id",
             "name", 

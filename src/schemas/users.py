@@ -16,7 +16,7 @@ class UserSchema(ma.Schema):
             "department",
         )
 
-        load_only = ["department_id","password"]
+        load_only = ["id","department_id","password"]
     
     email = fields.Email(
         required=True,

@@ -1,4 +1,5 @@
 from main import db 
+from sqlalchemy import UniqueConstraint 
 
 class PurchaseOrder(db.Model):
     __tablename__ = "purchase_orders"
@@ -7,10 +8,13 @@ class PurchaseOrder(db.Model):
     
     purchase_id = db.Column(db.Integer, db.ForeignKey("purchases.id"), nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey("items.id"), nullable=False)
-    request_id = db.Column(db.Integer, db.ForeignKey("requests.id"), nullable=True)
-    order_date = db.Column(db.Date)
+    order_date = db.Column(db.Date,nullable=False)
     received_date = db.Column(db.Date, nullable=True)
-    qty = db.Column(db.Integer)
+    qty = db.Column(db.Integer, nullable=False)
+    
+    __table_args__ = (
+        UniqueConstraint('purchase_id', 'item_id'),
+    )
     
     item = db.relationship(
         "Item",
@@ -22,11 +26,10 @@ class PurchaseOrder(db.Model):
         back_populates="purchase_orders"
     )
     
-    
-    
-    request = db.relationship(
+    requests = db.relationship(
         "Request",
-        back_populates="purchase_orders"
+        back_populates="purchase_order",
+        cascade="all, delete"
     )
 
     

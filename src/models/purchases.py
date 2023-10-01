@@ -6,10 +6,10 @@ class Purchase(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     
-    po_number = db.Column(db.Integer)
+    po_number = db.Column(db.Integer, nullable=False)
     backorder_suffix = db.Column(db.String(length=2), default="A")
-    department_id = db.Column(db.Integer, db.ForeignKey("departments.id"))
-    supplier_id = db.Column(db.Integer, db.ForeignKey("suppliers.id"))
+    department_id = db.Column(db.Integer, db.ForeignKey("departments.id"),nullable=False)
+    supplier_id = db.Column(db.Integer, db.ForeignKey("suppliers.id"),nullable=False)
     
     #contraint to ensure that no duplicate purchases exist with the same combination of main order and backorder information
     __table_args__ = (

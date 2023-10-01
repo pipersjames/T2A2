@@ -9,6 +9,7 @@ class Status(db.Model):
     
     requests = db.relationship(
     "Request", 
-    back_populates="status"
+    back_populates="status",
+    cascade="all, delete"
     )
     
