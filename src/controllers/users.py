@@ -4,116 +4,70 @@ from models.users import User
 from schemas.users import user_schema, users_schema
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from decorators.admin import admin_required
+from controllers import crud
 
 users = Blueprint("users", __name__, url_prefix="/users")
 
-# returns a list out all the users - restricted to admin
-@users.route("/all", methods=["GET"])
+   
+# List out all the users - refer get_all_records in crud.py - admin protected (refer admin_required in decorators)
+@users.route("/", methods=["GET"])
 @jwt_required()
 @admin_required
 def get_users():
-    try:
-        users = User.query.all()
-        result = users_schema.dump(users)
-        return jsonify(result), 200
-    except Exception as e:
-        return jsonify({"message": "An error occurred while fetching users", "error": str(e)}), 500
+    return crud.get_all_records(User,users_schema) 
 
-#returns user data by id - restricted to admin
+# retuns the information related to the user by id. this is given in a integer format in the route heading- refer get_record in crud.py - admin protected (refer admin_required in decorators)
 
 @users.route("/<int:user_id>", methods=["GET"])
 @jwt_required()
 @admin_required
-def get_user(user_id: int):
-    try:
-        query = db.select(User).filter_by(id=user_id)
-        user = db.session.scalar(query)
-        result = user_schema.dump(user)
-        return jsonify(result), 200
-    except Exception as e:
-        return jsonify({"message": "An error occurred while fetching users", "error": str(e)}), 500
+def get_department(user_id: int):
+    return crud.get_record(User,user_schema,user_id)
     
-#get current user data
+#get current user data to return a personal record
 
 @users.route("/", methods=["GET"])
 @jwt_required()
 def get_current_user():
     try:
+        #check identity in the token and store in variable
         identity = get_jwt_identity()
+        # query the user table to match the current token identity
         query = db.select(User).filter_by(email=identity)
+        # store the user data in a variable
         user = db.session.scalar(query)
+        # create a dump for the client 
         result = user_schema.dump(user)
+        # return the dump
         return jsonify(result), 200
+    # handle the errors
     except Exception as e:
         return jsonify({"message": "An error occurred while fetching users", "error": str(e)}), 500
     
-# delete a user based on id - admin only
-    
+
+#deletes a record in the users table by id - refer delete_record in crud.py - admin protected (refer admin_required in decorators) 
 @users.route("/<int:user_id>", methods=["DELETE"])
 @jwt_required()
 @admin_required
 def delete_user(user_id: int):
-    q = db.select(User).filter_by(id=user_id)
-    user = db.session.scalar(q)
-    response = user_schema.dump(user)
+    return crud.delete_record(User,user_schema,user_id)
 
-    if response:
-        user_data = {
-        "first_name": user.first_name,
-        "second_name": user.second_name,
-    }
-        db.session.delete(user)
-        db.session.commit()
-        return jsonify(message=f"User {user.second_name, user.first_name} has been deleted successfully!")
 
-    return jsonify(message=f"User '{user_id}' not found. No records deleted")
-
-# create a new user - admin only
-
+#create a new user entry - refer create_new record in crud.py - admin protected (refer admin_required in decorators) 
 @users.route("/", methods=["POST"])
 @jwt_required()
 @admin_required
 def create_new_user():
-    user_json = user_schema.load(request.json)
-    user = User(
-        **{
-            "first_name": user_json["first_name"],
-            "second_name": user_json["second_name"],
-            "email": user_json["email"],
-            "password": bcrypt.generate_password_hash(user_json["password"]).decode("utf"),
-            "phone_number": user_json["phone_number"],
-            "department_id": user_json["department_id"], 
-            "admin": user_json["admin"],
-        }
-    )
-    
-    db.session.add(user)
-    db.session.commit()
-    
-    return jsonify(user_schema.dump(user))
+    return crud.create_new_record(User, user_schema)
 
 #update user data - jwt required 
 
+#patches the information in the users table - refer patch record in crud.py - admin protected (refer admin_required in decorators)
 @users.route("/<int:user_id>", methods=["PATCH"])
 @jwt_required()
+@admin_required
 def patch_user(user_id: int):
-    try:
-        current_user_email = get_jwt_identity()
-
-        q = db.select(User).filter_by(id=user_id)
-        user = db.session.scalar(q)
-
-        if user and current_user_email == user.email:
-            user_json = user_schema.load(request.json, partial=True)
-            for field, value in user_json.items():
-                setattr(user, field, value)
-            db.session.commit()
-            return jsonify(user_schema.dump(user))
-
-        return jsonify(message=f"Cannot update user with id=`{user_id}`. Not found or unauthorized"), 403
-
-    except Exception as e:
-        return jsonify({"message": "An error occurred while updating the user", "error": str(e)}), 500
+    return crud.patch_record(User, user_schema, user_id)
     
 
 

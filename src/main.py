@@ -8,7 +8,6 @@ from config import app_config
 import sqlalchemy as sa
 
 
-
 bcrypt = Bcrypt()
 db = SQLAlchemy()
 ma = Marshmallow()

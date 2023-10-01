@@ -1,68 +1,66 @@
 from flask import Blueprint, jsonify, request, abort
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token
 from datetime import timedelta
-
 from main import db, bcrypt
 from models.users import User
 from schemas.users import user_schema
+from werkzeug.exceptions import BadRequest
 
 auths = Blueprint("auth", __name__, url_prefix="/auths")
 
-# needs to handle already registered user gracefully
+# creates a new user and provides a token for the current session. admin field intentionally excluded to prevent new users from making themsevles one. 
 @auths.route("/register", methods=["POST"])
 def register_user():
-    user_json = user_schema.load(request.json)
-    user = User(
-        **{
-            "first_name": user_json["first_name"],
-            "second_name": user_json["second_name"],
-            "email": user_json["email"],
-            "password": bcrypt.generate_password_hash(user_json["password"]).decode("utf"),
-            "phone_number": user_json["phone_number"],
-            "department_id": user_json["department_id"], 
-        }
-    )
-    db.session.add(user)
-    db.session.commit()
-    
-    access_token = create_access_token(identity=user_json["email"])
+    #try block to handle errors, in particular the case where additional fields or less than are provided.
+    try:
+        # loads the json provided by the client
+        user_json = user_schema.load(request.json)
+        # makes a new instance given the parameters set below
+        user = User(
+            **{
+                "first_name": user_json["first_name"],
+                "second_name": user_json["second_name"],
+                "email": user_json["email"],
+                "password": bcrypt.generate_password_hash(user_json["password"]).decode("utf"),
+                "phone_number": user_json["phone_number"],
+                "department_id": user_json["department_id"], 
+            }
+        )
+        # add the session
+        db.session.add(user)
+        # commit changes
+        db.session.commit()
+        # generate a token for the new user
+        access_token = create_access_token(identity=user_json["email"])
+        # return the token to the client
+        return jsonify({"token": access_token})
+    except Exception as e:
+            return jsonify({"message": "An error occured", "error": str(e)}), 500
+        
 
-    return jsonify({"token": access_token})
-
-
-@auths.route("/check-session", methods=["POST"])
-@jwt_required()
-def login_check():
-    email_identity = get_jwt_identity()
-    
-    query = db.select(User).filter_by(email=email_identity)
-    user = db.session.scalar(query)
-    
-    user_data = {
-        "first_name": user.first_name,
-        "second_name": user.second_name,
-        "email": user.email
-    }
-    
-    return jsonify(logged_in_as=user_data), 200
-
-
+# Takes the user email and password as input. Checks the users table to look for a match and then generates a token for the current sesssion.
 @auths.route("/login", methods=["POST"])
 def login_user():
-    email = request.json.get("email")
-    password = request.json.get("password")
+    # error handler block
+    try:
+        # loads the email and passord from the input json    
+        email = request.json.get("email")
+        password = request.json.get("password")
 
-    # Query the database to find the user by email
-    query = db.select(User).filter_by(email=email)
-    user = db.session.scalar(query)
+        # Query the database to find the user by email
+        query = db.select(User).filter_by(email=email)
+        user = db.session.scalar(query)
 
-    if not user or not bcrypt.check_password_hash(user.password, password):
-        return abort(401, description="Incorrect email or password. Please try again")
-    # added additional time to the token - consider refreshing token during use
-    expiration_time = timedelta(hours=1)
-    # If the user exists and the password is correct, generate a JWT
-    access_token = create_access_token(identity=user.email, expires_delta=expiration_time)
+        # if case to prevent login if credentials don't match
+        if not user or not bcrypt.check_password_hash(user.password, password):
+            return abort(401, description="Incorrect email or password. Please try again")
+        # set the token timer to 1 hours.
+        expiration_time = timedelta(hours=1)
+        # gemerate tje token
+        access_token = create_access_token(identity=user.email, expires_delta=expiration_time)
 
-    # Return the token to the client
-    return jsonify({"token": access_token})
+        return jsonify({"token": access_token})
+    
+    except Exception as e:
+            return jsonify({"message": "An error occured", "error": str(e)}), 500
 

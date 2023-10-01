@@ -1,84 +1,49 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint
 from main import db
 from models.purchases import Purchase
 from schemas.purchases import purchase_schema, purchases_schema
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required
 from decorators.admin import admin_required
+from controllers import crud
+
 
 purchases = Blueprint("purchases", __name__, url_prefix="/purchases")
 
-# List out all the purchases
+# List out all the purchases - refer get_all_records in crud.py
 @purchases.route("/", methods=["GET"])
 def get_purchases():
-    try:
-        purchases = Purchase.query.all()
-        result = purchases_schema.dump(purchases)
-        return jsonify(result), 200
-    except Exception as e:
-        return jsonify({"message": "An error occurred while fetching users", "error": str(e)}), 500
+    return crud.get_all_records(Purchase,purchases_schema) 
 
-#return data of specific purchase using the id as input  
-    
+# retuns the information related to the purchase by id. this is given in a integer format in the route heading- refer get_record in crud.py  
 @purchases.route("/<int:purchase_id>", methods=["GET"])
 def get_purchase(purchase_id: int):
-    try:
-        query = db.select(Purchase).filter_by(id=purchase_id)
-        purchase = db.session.scalar(query)
-        result = purchase_schema.dump(purchase)
-        return jsonify(result), 200
-    except Exception as e:
-        return jsonify({"message": "An error occurred while fetching users", "error": str(e)}), 500
+    return crud.get_record(Purchase,purchase_schema,purchase_id)
 
-#delete an existing purchase record by id    
+#deletes a record in the purchases table by id - refer delete_record in crud.py  
 @purchases.route("/<int:purchase_id>", methods=["DELETE"])
 @jwt_required()
 @admin_required
 def delete_purchase(purchase_id: int):
-    q = db.select(Purchase).filter_by(id=purchase_id)
-    purchase = db.session.scalar(q)
-    response = purchase_schema.dump(purchase)
+    return crud.delete_record(Purchase,purchase_schema,purchase_id)
 
-    if response:
-        purchase_data = {
-        "name": purchase.name,
-    }
-        db.session.delete(purchase)
-        db.session.commit()
-        return jsonify(message=f"purchase {purchase.name} has been deleted successfully!")
-
-    return jsonify(message=f"purchase '{purchase_id}' not found. No records deleted")
-
-
-#create a new purchase entry
+#create a new purchase entry - refer create_new record in crud.py
 @purchases.route("/", methods=["POST"])
 @jwt_required()
 @admin_required
 def create_new_purchase():
-    purchase_json = purchase_schema.load(request.json)
-    purchase = Purchase(**purchase_json)
-    
-    db.session.add(purchase)
-    db.session.commit()
-    
-    return jsonify(purchase_schema.dump(purchase))
+    return crud.create_new_record(Purchase, purchase_schema)
 
-#patch specific sections of the purchase information depending on what is added to the json
 
+# used for injecting purchase records in bulk - refer create_new_records in crud.py
+@purchases.route("/multiple", methods=["POST"])
+@jwt_required()
+@admin_required
+def create_new_purchases():
+    return crud.create_new_records(Purchase, purchases_schema)
+
+#patches the information in the purchases table - refer patch record in crud.py
 @purchases.route("/<int:purchase_id>", methods=["PATCH"])
 @jwt_required()
 @admin_required
 def patch_purchase(purchase_id: int):
-    try:
-        q = db.select(Purchase).filter_by(id=purchase_id)
-        purchase = db.session.scalar(q)
-
-        purchase_json = purchase_schema.load(request.json, partial=True)
-        for field, value in purchase_json.items():
-            setattr(purchase, field, value)
-        db.session.commit()
-        return jsonify(purchase_schema.dump(purchase))
-
-        return jsonify(message=f"Cannot update purchase with id=`{purchase_id}`. Not found or unauthorized"), 403
-
-    except Exception as e:
-        return jsonify({"message": "An error occurred while updating the purchase", "error": str(e)}), 500
+    return crud.patch_record(Purchase, purchase_schema, purchase_id)

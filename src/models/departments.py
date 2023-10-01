@@ -13,7 +13,14 @@ class Department(db.Model):
    # relationships
     users = db.relationship(
         "User",
-        back_populates="department"
-    ) 
+        back_populates="department",
+        cascade="all, delete" 
+        ) 
+    
+    purchases = db.relationship(
+        "Purchase",
+        back_populates = "department",
+        cascade="all, delete"
+    )
     
     

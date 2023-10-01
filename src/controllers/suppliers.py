@@ -1,84 +1,40 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint
 from main import db
 from models.suppliers import Supplier
 from schemas.suppliers import supplier_schema, suppliers_schema
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required
 from decorators.admin import admin_required
+from controllers import crud
 
 suppliers = Blueprint("suppliers", __name__, url_prefix="/suppliers")
 
-# List out all the suppliers
+# List out all the suppliers - refer get_all_records in crud.py
 @suppliers.route("/", methods=["GET"])
 def get_suppliers():
-    try:
-        suppliers = Supplier.query.all()
-        result = suppliers_schema.dump(suppliers)
-        return jsonify(result), 200
-    except Exception as e:
-        return jsonify({"message": "An error occurred while fetching users", "error": str(e)}), 500
+    return crud.get_all_records(Supplier,suppliers_schema) 
 
-#return data of specific supplier using the id as input  
-    
+# retuns the information related to the supplier by id. this is given in a integer format in the route heading- refer get_record in crud.py  
 @suppliers.route("/<int:supplier_id>", methods=["GET"])
 def get_supplier(supplier_id: int):
-    try:
-        query = db.select(Supplier).filter_by(id=supplier_id)
-        supplier = db.session.scalar(query)
-        result = supplier_schema.dump(supplier)
-        return jsonify(result), 200
-    except Exception as e:
-        return jsonify({"message": "An error occurred while fetching users", "error": str(e)}), 500
+    return crud.get_record(Supplier,supplier_schema,supplier_id)
 
-#delete an existing supplier record by id    
+#deletes a record in the suppliers table by id - refer delete_record in crud.py  
 @suppliers.route("/<int:supplier_id>", methods=["DELETE"])
 @jwt_required()
 @admin_required
 def delete_supplier(supplier_id: int):
-    q = db.select(supplier).filter_by(id=supplier_id)
-    supplier = db.session.scalar(q)
-    response = supplier_schema.dump(supplier)
+    return crud.delete_record(Supplier,supplier_schema,supplier_id)
 
-    if response:
-        supplier_data = {
-        "name": supplier.name,
-    }
-        db.session.delete(supplier)
-        db.session.commit()
-        return jsonify(message=f"supplier {supplier.name} has been deleted successfully!")
-
-    return jsonify(message=f"supplier '{supplier_id}' not found. No records deleted")
-
-
-#create a new supplier entry
+#create a new supplier entry - refer create_new record in crud.py
 @suppliers.route("/", methods=["POST"])
 @jwt_required()
 @admin_required
 def create_new_supplier():
-    supplier_json = supplier_schema.load(request.json)
-    supplier = Supplier(**supplier_json)
-    
-    db.session.add(supplier)
-    db.session.commit()
-    
-    return jsonify(supplier_schema.dump(supplier))
+    return crud.create_new_record(Supplier, supplier_schema)
 
-#patch specific sections of the supplier information depending on what is added to the json
-
+#patches the information in the suppliers table - refer patch record in crud.py
 @suppliers.route("/<int:supplier_id>", methods=["PATCH"])
 @jwt_required()
 @admin_required
 def patch_supplier(supplier_id: int):
-    try:
-        q = db.select(supplier).filter_by(id=supplier_id)
-        supplier = db.session.scalar(q)
-
-        supplier_json = supplier_schema.load(request.json, partial=True)
-        for field, value in supplier_json.items():
-            setattr(supplier, field, value)
-        db.session.commit()
-        return jsonify(supplier_schema.dump(supplier))
-
-        return jsonify(message=f"Cannot update supplier with id=`{supplier_id}`. Not found or unauthorized"), 403
-
-    except Exception as e:
-        return jsonify({"message": "An error occurred while updating the supplier", "error": str(e)}), 500
+    return crud.patch_record(Supplier, supplier_schema, supplier_id)

@@ -1,11 +1,11 @@
 # custom decorator to handle authorization
 from functools import wraps
 from flask import jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import get_jwt_identity
 from models.users import User
 from main import db
 
-
+# used to ensure that the current user is admin
 def admin_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
