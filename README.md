@@ -4,9 +4,13 @@
 
 This application aims to solve the problem of organising and streamlining access to team requests on a broad scale.  In the real world, warehouse teams receiving goods are constantly experiencing errors with what is shipped, whether that be incorrect supply of goods, no goods at all or many other scenarios. From a sales perspective an ETA helps to keep customer relations positive. Modifying code or contacting the supplier is a restricted function within the business model for this company. Most dealings with the supplier are funnelled through the purchasing team as well as the job of maintaining data integrity/accuracy for all the orders and this application will streamline the visibility of actions for those that need to know them. 
 
+---
+
 #### R2 Why is it a problem that needs solving?
 
 Although you could use pure email communication or over the phone contact this also presents several issues once volumes increase. This makes it difficult to determine urgency, what is easy to resolve vs hard etc. It also helps to regulate what information teams are giving to the purchasing side of the operation. This API is designed to organise these requests for the purchasing team to be able to review in mass in a timely manner, effectively cutting costs or providing excess time for more important tasks. It could also help distribute easier tasks to newer/less skilled team members to reduce the work- load for those with a higher skill ceiling.
+
+---
 
 #### R3 Why have you chosen this database system. What are the drawbacks compared to others?
 
@@ -14,13 +18,19 @@ I've chosen to use the postgreSQL database system as it provides several quality
 
 Some of the drawbacks of this database are the issues with storage space, resource intensiveness. We may face compatibility issues if we choose to migrate as with PostgreSQL some of the dialect used differs from standard SQL. A large issue that seems problematic is that PostgreSQL is better for transactional applications and less suitable for business intelligence. This may pose a problem if I want to analyse the error rates of transactions against company data or otherwise.
 
+---
+
 #### R4 Identify and discuss the key functionalities and benefits of an ORM
 
 Object-relational mapping is used to bridge the gap between direct database management and object-orientated programming through languages like python or java. The process of abstraction applied to the database operations means that writing raw SQL queries can be kept to a minimum if they are needed at all. This lets the user focus on building data structures using object and classes. This also makes it easier to model the information in the data for later amendments. ORM libraries provide easy to use methods for performing CRUD operations on records. ORM frameworks can also provide their own query languages that are more abstract than raw SQL making it easier to express complex queries. There is also the benefit of caching mechanisms to prevent the need to constantly fetch the data from the database. Overall, the benefits of an ORM provide increased productivity, portability, code maintainability, security and options for rapid proto-typing. 
 
+---
+
 #### R5 Document all endpoints for your API
 
 note: if the field indicates both jwt and admin required then the bearer token must correspond with a user who has admin access. The logins provided in the login section have both types.
+
+---
 
 ### Authorization endpoints - auth
 
@@ -530,13 +540,19 @@ expected outcome
 }
 ```
 
+---
+
 #### R6 An ERD for your app
 
 ![ERD](./docs/ERD.png)
 
+---
+
 #### R7 Detail any third party services that your app will use
 
 It's most likely the app will use a hosting service to store and access the data uploaded, the exact service is not yet known. An email service to send emails to teams regarding the completion of request and/or to the purchasing team to notify of new requests. potentially having some third-party authentication services could help round out the security in the application. Might also look at third-party support for data analysis of errors raised by warehouse teams.
+
+---
 
 #### R8 & R9 Describe your projects models in terms of the relationships they have with each other & Discuss the database relations to be implemented in your application
 
@@ -571,6 +587,8 @@ suppliers
 * zero to many relationship with items. many different items are related to a single supplier and are purchased from them. deleting a supplier will delete all items related.
 users
 * one to many relationship with the requests. each request must have a user assigned to it. deleting a user will delete all related request records.
+
+---
 
 #### R10 Describe the way tasks are allocated and tracked in your project
 
